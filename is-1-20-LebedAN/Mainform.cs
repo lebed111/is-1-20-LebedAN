@@ -38,7 +38,14 @@ namespace is_1_20_LebedAN
 
             ClientMenuItems.Click += Client;
             emploMenuItems.Click += emploe;
-            
+            expensMenuItems.Click += expens;
+            incomeMenuItems.Click += income;
+            OrderMenuItems.Click += Order;
+            privilagMenuItems.Click += privilag;
+            providerMenuItems.Click += provider;
+            tariffMenuItems.Click += tariff;
+            tep_expensMenuItems.Click += tepes_expens;
+
         }
 
 
@@ -80,12 +87,13 @@ namespace is_1_20_LebedAN
         {
             f2.conn.Open();
             table.Clear();
+            table.Columns.Clear();
             string cl = "SELECT * FROM Client;";
-            MyDA.SelectCommand = new MySqlCommand(cl,f2.conn);
+            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
             dataGridView1.DataSource = bSource;
             bSource.DataSource = table;
             MyDA.Fill(table);
-             
+
 
             dataGridView1.Columns[0].Visible = true;
             dataGridView1.Columns[1].Visible = true;
@@ -103,10 +111,13 @@ namespace is_1_20_LebedAN
 
             f2.conn.Close();
         }
-        public void emploe (object sender, EventArgs e)
+        //сотрудники
+        public void emploe(object sender, EventArgs e)
         {
-            f2.conn.Open();           
+            f2.conn.Open();
             table.Clear();
+            table.Columns.Clear();
+
             string cl = "SELECT * FROM employee;";
             MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
             bSource.DataSource = table;
@@ -132,6 +143,251 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dataGridView1.ColumnHeadersVisible = true;
+
+            f2.conn.Close();
+        }
+        // расходы
+        public void expens(object sender, EventArgs e)
+        {
+            f2.conn.Open();
+            table.Clear();
+            table.Columns.Clear();
+            string cl = "SELECT * FROM expenses;";
+            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+            dataGridView1.DataSource = bSource;
+            bSource.DataSource = table;
+            MyDA.Fill(table);
+
+
+            dataGridView1.Columns[0].Visible = true;
+            dataGridView1.Columns[1].Visible = true;
+            dataGridView1.Columns[2].Visible = true;
+            dataGridView1.Columns[3].Visible = true;
+            dataGridView1.Columns[4].Visible = true;
+
+            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Columns[1].ReadOnly = true;
+            dataGridView1.Columns[2].ReadOnly = true;
+            dataGridView1.Columns[3].ReadOnly = true;
+            dataGridView1.Columns[4].ReadOnly = true;
+
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dataGridView1.ColumnHeadersVisible = true;
+
+            f2.conn.Close();
+        }
+        // доходы
+        public void income(object sender, EventArgs e)
+        {
+            f2.conn.Open();
+            table.Clear();
+            table.Columns.Clear();
+            string cl = "SELECT * FROM income;";
+            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+            dataGridView1.DataSource = bSource;
+            bSource.DataSource = table;
+            MyDA.Fill(table);
+
+
+            dataGridView1.Columns[0].Visible = true;
+            dataGridView1.Columns[1].Visible = true;
+            dataGridView1.Columns[2].Visible = true;
+
+
+            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Columns[1].ReadOnly = true;
+            dataGridView1.Columns[2].ReadOnly = true;
+
+
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+
+            dataGridView1.ColumnHeadersVisible = true;
+
+            f2.conn.Close();
+        }
+        // заказы : клинты и время 
+        public void Order(object sender, EventArgs e)
+        {
+            f2.conn.Open();
+            table.Clear();
+            table.Columns.Clear();
+            string cl = "SELECT * FROM Order;";
+            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+            dataGridView1.DataSource = bSource;
+            bSource.DataSource = table;
+            MyDA.Fill(table);
+
+
+            dataGridView1.Columns[0].Visible = true;
+            dataGridView1.Columns[1].Visible = true;
+            dataGridView1.Columns[2].Visible = true;
+            dataGridView1.Columns[3].Visible = true;
+
+
+            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Columns[1].ReadOnly = true;
+            dataGridView1.Columns[2].ReadOnly = true;
+            dataGridView1.Columns[3].ReadOnly = true;
+
+
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+
+            dataGridView1.ColumnHeadersVisible = true;
+
+            f2.conn.Close();
+        }
+        // привилегии и их описание
+        public void privilag(object sender, EventArgs e)
+        {
+            f2.conn.Open();
+            table.Clear();
+            table.Columns.Clear();
+            string cl = "SELECT * FROM privilege;";
+            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+            dataGridView1.DataSource = bSource;
+            bSource.DataSource = table;
+            MyDA.Fill(table);
+
+
+            dataGridView1.Columns[0].Visible = true;
+            dataGridView1.Columns[1].Visible = true;
+            dataGridView1.Columns[2].Visible = true;
+            dataGridView1.Columns[3].Visible = true;
+
+
+            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Columns[1].ReadOnly = true;
+            dataGridView1.Columns[2].ReadOnly = true;
+            dataGridView1.Columns[3].ReadOnly = true;
+
+
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+
+            dataGridView1.ColumnHeadersVisible = true;
+
+            f2.conn.Close();
+        }
+        // поставщик 
+        public void provider(object sender, EventArgs e)
+        {
+            f2.conn.Open();
+            table.Clear();
+            table.Columns.Clear();
+            string cl = "SELECT * FROM provider;";
+            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+            dataGridView1.DataSource = bSource;
+            bSource.DataSource = table;
+            MyDA.Fill(table);
+
+
+            dataGridView1.Columns[0].Visible = true;
+            dataGridView1.Columns[1].Visible = true;
+            dataGridView1.Columns[2].Visible = true;
+            dataGridView1.Columns[3].Visible = true;
+
+
+            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Columns[1].ReadOnly = true;
+            dataGridView1.Columns[2].ReadOnly = true;
+            dataGridView1.Columns[3].ReadOnly = true;
+
+
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+
+            dataGridView1.ColumnHeadersVisible = true;
+
+            f2.conn.Close();
+        }
+        // расценка всех покупок
+        public void tariff(object sender, EventArgs e)
+        {
+            f2.conn.Open();
+            table.Clear();
+            table.Columns.Clear();
+            string cl = "SELECT * FROM tariff;";
+            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+            dataGridView1.DataSource = bSource;
+            bSource.DataSource = table;
+            MyDA.Fill(table);
+
+
+            dataGridView1.Columns[0].Visible = true;
+            dataGridView1.Columns[1].Visible = true;
+            dataGridView1.Columns[2].Visible = true;
+            dataGridView1.Columns[3].Visible = true;
+
+
+            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Columns[1].ReadOnly = true;
+            dataGridView1.Columns[2].ReadOnly = true;
+            dataGridView1.Columns[3].ReadOnly = true;
+
+
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+
+            dataGridView1.ColumnHeadersVisible = true;
+
+            f2.conn.Close();
+        }
+        // типы расходов
+        public void tepes_expens(object sender, EventArgs e)
+        {
+            f2.conn.Open();
+            table.Clear();
+            table.Columns.Clear();
+            string cl = "SELECT * FROM tepes_exenses;";
+            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+            dataGridView1.DataSource = bSource;
+            bSource.DataSource = table;
+            MyDA.Fill(table);
+
+            dataGridView1.Columns[0].Visible = true;
+            dataGridView1.Columns[1].Visible = true;
+            dataGridView1.Columns[2].Visible = true;
+            dataGridView1.Columns[3].Visible = true;
+            dataGridView1.Columns[4].Visible = true;
+            dataGridView1.Columns[5].Visible = true;
+
+            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Columns[1].ReadOnly = true;
+            dataGridView1.Columns[2].ReadOnly = true;
+            dataGridView1.Columns[3].ReadOnly = true;
+            dataGridView1.Columns[4].ReadOnly = true;
+            dataGridView1.Columns[5].ReadOnly = true;
+
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
 
             dataGridView1.ColumnHeadersVisible = true;
 
