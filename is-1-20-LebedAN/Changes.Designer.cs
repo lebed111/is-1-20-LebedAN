@@ -29,12 +29,18 @@ namespace is_1_20_LebedAN
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.metroButton2 = new MetroFramework.Controls.MetroButton();
             this.label1 = new System.Windows.Forms.Label();
             this.metroButton4 = new MetroFramework.Controls.MetroButton();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.приветToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -42,13 +48,13 @@ namespace is_1_20_LebedAN
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(0, 91);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(674, 208);
+            this.dataGridView1.Size = new System.Drawing.Size(759, 247);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // metroButton1
             // 
-            this.metroButton1.Location = new System.Drawing.Point(0, 41);
+            this.metroButton1.Location = new System.Drawing.Point(319, 9);
             this.metroButton1.Name = "metroButton1";
             this.metroButton1.Size = new System.Drawing.Size(127, 31);
             this.metroButton1.TabIndex = 1;
@@ -57,7 +63,7 @@ namespace is_1_20_LebedAN
             // 
             // metroButton2
             // 
-            this.metroButton2.Location = new System.Drawing.Point(562, 41);
+            this.metroButton2.Location = new System.Drawing.Point(479, 9);
             this.metroButton2.Name = "metroButton2";
             this.metroButton2.Size = new System.Drawing.Size(100, 31);
             this.metroButton2.TabIndex = 2;
@@ -77,26 +83,58 @@ namespace is_1_20_LebedAN
             // 
             // metroButton4
             // 
-            this.metroButton4.Location = new System.Drawing.Point(145, 41);
+            this.metroButton4.Location = new System.Drawing.Point(160, 9);
             this.metroButton4.Name = "metroButton4";
             this.metroButton4.Size = new System.Drawing.Size(126, 31);
             this.metroButton4.TabIndex = 5;
-            this.metroButton4.Text = "Добавить бд";
+            this.metroButton4.Text = "Изменить бд";
             this.metroButton4.UseSelectable = true;
+            this.metroButton4.Click += new System.EventHandler(this.metroButton4_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.приветToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(20, 60);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(718, 24);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
+            // 
+            // приветToolStripMenuItem
+            // 
+            this.приветToolStripMenuItem.Name = "приветToolStripMenuItem";
+            this.приветToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.приветToolStripMenuItem.Text = "привет";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Name = "contextMenuStrip1";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
             // Changes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(675, 299);
+            this.ClientSize = new System.Drawing.Size(758, 340);
             this.Controls.Add(this.metroButton4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.metroButton2);
             this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Changes";
             this.Load += new System.EventHandler(this.Changes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -109,5 +147,9 @@ namespace is_1_20_LebedAN
         private MetroFramework.Controls.MetroButton metroButton2;
         private System.Windows.Forms.Label label1;
         private MetroFramework.Controls.MetroButton metroButton4;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem приветToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
     }
 }

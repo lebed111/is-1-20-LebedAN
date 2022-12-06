@@ -14,9 +14,10 @@ namespace is_1_20_LebedAN
     public partial class Mainform : MetroFramework.Forms.MetroForm
     {
         Requests.Requests f2 = new Requests.Requests();
-        private BindingSource bSource = new BindingSource();
-        private MySqlDataAdapter MyDA = new MySqlDataAdapter();
-        DataTable table = new DataTable();
+        public BindingSource bSource = new BindingSource();
+        public MySqlDataAdapter MyDA = new MySqlDataAdapter();
+        public DataTable table = new DataTable();
+        
         public Mainform()
         {
             InitializeComponent();
@@ -30,7 +31,6 @@ namespace is_1_20_LebedAN
             ToolStripMenuItem providerMenuItems = new ToolStripMenuItem("Поставщики");
             ToolStripMenuItem tariffMenuItems = new ToolStripMenuItem("Тарифы");
             ToolStripMenuItem tep_expensMenuItems = new ToolStripMenuItem("Типы расходов");
-
 
             contextMenuStrip1.Items.AddRange(new[] { emploMenuItems, ClientMenuItems,expensMenuItems,incomeMenuItems,OrderMenuItems,privilagMenuItems,providerMenuItems,tariffMenuItems,tep_expensMenuItems});
 
@@ -64,7 +64,29 @@ namespace is_1_20_LebedAN
             f2.con();
 
             label1.Text = $"Сотрудник {Auth.auth_fio} \n уровень доступа {Auth.auth_role}";
-            
+
+            f2.conn.Open();
+            table.Clear();
+            table.Columns.Clear();
+            string cl = "SELECT * FROM tariff;";
+            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+            dataGridView1.DataSource = bSource;
+            bSource.DataSource = table;
+            MyDA.Fill(table);
+
+            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Columns[1].ReadOnly = true;
+            dataGridView1.Columns[2].ReadOnly = true;
+            dataGridView1.Columns[3].ReadOnly = true;
+
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dataGridView1.ColumnHeadersVisible = true;
+            f2.num(8);
+            f2.conn.Close();
         }
 
         private void metroButton1_Click(object sender, EventArgs e)
@@ -83,6 +105,7 @@ namespace is_1_20_LebedAN
         {
             this.Show();
         }
+        // клиенты(1)
         public void Client(object sender, EventArgs e)
         {
             f2.conn.Open();
@@ -94,11 +117,6 @@ namespace is_1_20_LebedAN
             bSource.DataSource = table;
             MyDA.Fill(table);
 
-
-            dataGridView1.Columns[0].Visible = true;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[2].Visible = true;
-
             dataGridView1.Columns[0].ReadOnly = true;
             dataGridView1.Columns[1].ReadOnly = true;
             dataGridView1.Columns[2].ReadOnly = true;
@@ -108,10 +126,10 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dataGridView1.ColumnHeadersVisible = true;
-
+            f2.num(1);
             f2.conn.Close();
         }
-        //сотрудники
+        // сотрудники(2)
         public void emploe(object sender, EventArgs e)
         {
             f2.conn.Open();
@@ -125,11 +143,6 @@ namespace is_1_20_LebedAN
             MyDA.Fill(table);
 
             dataGridView1.Columns[0].Visible = false;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[2].Visible = true;
-            dataGridView1.Columns[3].Visible = true;
-            dataGridView1.Columns[4].Visible = true;
-            dataGridView1.Columns[5].Visible = true;
             dataGridView1.Columns[6].Visible = false;
 
             dataGridView1.Columns[1].ReadOnly = true;
@@ -145,10 +158,10 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dataGridView1.ColumnHeadersVisible = true;
-
+            f2.num(2);
             f2.conn.Close();
         }
-        // расходы
+        // расходы(3)
         public void expens(object sender, EventArgs e)
         {
             f2.conn.Open();
@@ -159,13 +172,6 @@ namespace is_1_20_LebedAN
             dataGridView1.DataSource = bSource;
             bSource.DataSource = table;
             MyDA.Fill(table);
-
-
-            dataGridView1.Columns[0].Visible = true;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[2].Visible = true;
-            dataGridView1.Columns[3].Visible = true;
-            dataGridView1.Columns[4].Visible = true;
 
             dataGridView1.Columns[0].ReadOnly = true;
             dataGridView1.Columns[1].ReadOnly = true;
@@ -180,10 +186,10 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dataGridView1.ColumnHeadersVisible = true;
-
+            f2.num(3);
             f2.conn.Close();
         }
-        // доходы
+        // доходы(4)
         public void income(object sender, EventArgs e)
         {
             f2.conn.Open();
@@ -195,16 +201,9 @@ namespace is_1_20_LebedAN
             bSource.DataSource = table;
             MyDA.Fill(table);
 
-
-            dataGridView1.Columns[0].Visible = true;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[2].Visible = true;
-
-
             dataGridView1.Columns[0].ReadOnly = true;
             dataGridView1.Columns[1].ReadOnly = true;
             dataGridView1.Columns[2].ReadOnly = true;
-
 
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -212,10 +211,10 @@ namespace is_1_20_LebedAN
 
 
             dataGridView1.ColumnHeadersVisible = true;
-
+            f2.num(4);
             f2.conn.Close();
         }
-        // заказы : клинты и время 
+        // заказы : клинты и время(5) 
         public void Order(object sender, EventArgs e)
         {
             f2.conn.Open();
@@ -227,13 +226,6 @@ namespace is_1_20_LebedAN
             bSource.DataSource = table;
             MyDA.Fill(table);
 
-
-            dataGridView1.Columns[0].Visible = true;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[2].Visible = true;
-            dataGridView1.Columns[3].Visible = true;
-
-
             dataGridView1.Columns[0].ReadOnly = true;
             dataGridView1.Columns[1].ReadOnly = true;
             dataGridView1.Columns[2].ReadOnly = true;
@@ -247,10 +239,10 @@ namespace is_1_20_LebedAN
 
 
             dataGridView1.ColumnHeadersVisible = true;
-
+            f2.num(5);
             f2.conn.Close();
         }
-        // привилегии и их описание
+        // привилегии и их описание(6)
         public void privilag(object sender, EventArgs e)
         {
             f2.conn.Open();
@@ -262,30 +254,21 @@ namespace is_1_20_LebedAN
             bSource.DataSource = table;
             MyDA.Fill(table);
 
-
-            dataGridView1.Columns[0].Visible = true;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[2].Visible = true;
-            dataGridView1.Columns[3].Visible = true;
-
-
             dataGridView1.Columns[0].ReadOnly = true;
             dataGridView1.Columns[1].ReadOnly = true;
             dataGridView1.Columns[2].ReadOnly = true;
             dataGridView1.Columns[3].ReadOnly = true;
-
 
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-
             dataGridView1.ColumnHeadersVisible = true;
-
+            f2.num(6);
             f2.conn.Close();
         }
-        // поставщик 
+        // поставщик (7)
         public void provider(object sender, EventArgs e)
         {
             f2.conn.Open();
@@ -297,30 +280,21 @@ namespace is_1_20_LebedAN
             bSource.DataSource = table;
             MyDA.Fill(table);
 
-
-            dataGridView1.Columns[0].Visible = true;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[2].Visible = true;
-            dataGridView1.Columns[3].Visible = true;
-
-
             dataGridView1.Columns[0].ReadOnly = true;
             dataGridView1.Columns[1].ReadOnly = true;
             dataGridView1.Columns[2].ReadOnly = true;
             dataGridView1.Columns[3].ReadOnly = true;
-
 
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-
             dataGridView1.ColumnHeadersVisible = true;
-
+            f2.num(7);
             f2.conn.Close();
         }
-        // расценка всех покупок
+        // расценка всех покупок(8)
         public void tariff(object sender, EventArgs e)
         {
             f2.conn.Open();
@@ -332,30 +306,21 @@ namespace is_1_20_LebedAN
             bSource.DataSource = table;
             MyDA.Fill(table);
 
-
-            dataGridView1.Columns[0].Visible = true;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[2].Visible = true;
-            dataGridView1.Columns[3].Visible = true;
-
-
             dataGridView1.Columns[0].ReadOnly = true;
             dataGridView1.Columns[1].ReadOnly = true;
             dataGridView1.Columns[2].ReadOnly = true;
             dataGridView1.Columns[3].ReadOnly = true;
-
 
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-
             dataGridView1.ColumnHeadersVisible = true;
-
+            f2.num(8);
             f2.conn.Close();
         }
-        // типы расходов
+        // типы расходов(9)
         public void tepes_expens(object sender, EventArgs e)
         {
             f2.conn.Open();
@@ -366,13 +331,6 @@ namespace is_1_20_LebedAN
             dataGridView1.DataSource = bSource;
             bSource.DataSource = table;
             MyDA.Fill(table);
-
-            dataGridView1.Columns[0].Visible = true;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[2].Visible = true;
-            dataGridView1.Columns[3].Visible = true;
-            dataGridView1.Columns[4].Visible = true;
-            dataGridView1.Columns[5].Visible = true;
 
             dataGridView1.Columns[0].ReadOnly = true;
             dataGridView1.Columns[1].ReadOnly = true;
@@ -388,9 +346,8 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-
             dataGridView1.ColumnHeadersVisible = true;
-
+            f2.num(9);
             f2.conn.Close();
         }
 
