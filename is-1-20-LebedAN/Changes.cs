@@ -16,6 +16,12 @@ namespace is_1_20_LebedAN
     public partial class Changes : MetroFramework.Forms.MetroForm
     {
         Mainform s2 = new Mainform();
+        popd pop = new popd();
+        class popd
+        {
+           public string max;
+            public int maxx;
+        }
         public Changes()
         {
             InitializeComponent();
@@ -38,7 +44,7 @@ namespace is_1_20_LebedAN
 
             metroButton4.ContextMenuStrip = contextMenuStrip1;
             dataGridView1.ContextMenuStrip = contextMenuStrip2;
-
+            //contextMenuStrip1
             ClientMenuItems.Click += Client;
             emploMenuItems.Click += emploe;
             expensMenuItems.Click += expens;
@@ -48,6 +54,8 @@ namespace is_1_20_LebedAN
             providerMenuItems.Click += provider;
             tariffMenuItems.Click += tariff;
             tep_expensMenuItems.Click += tepes_expens;
+            //contextMenuStrip2
+            updateMenuItems.Click += update;
         }
         Requests.Requests f2 = new Requests.Requests();
 
@@ -125,12 +133,41 @@ namespace is_1_20_LebedAN
             coluumn();
             f2.conn.Close();
         }
-        public void updat(object sender, EventArgs e)
+        public void update(object sender, EventArgs e)
         {
-            f2.conn.Open();
-            string cl;
-            MySqlCommand command = new MySqlCommand($"SELECT * FROM ");
-            f2.conn.Close();
+            switch (f2.number)
+            {
+                case 5:
+                    f2.conn.Open();
+                    pop.max = "SELECT MAX(id_or) FROM Orders;";
+                    MySqlCommand command = new MySqlCommand(pop.max,f2.conn);
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        pop.maxx = Convert.ToInt32(reader[0]);
+                    }
+                    f2.conn.Close();
+                    f2.conn.Open();              
+                    for (int i = 1; i <= pop.maxx; i++)
+                    {
+                        int rowIndex = i;
+                        DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                        string cl = $"UPDATE Orders SET id_cl = {row.Cells[1].Value}, id_ta = {row.Cells[2].Value}, date_or = \"{row.Cells[3].Value}\"  WHERE id_or ={i};";
+                        //command.Parameters.Add("@un", MySqlDbType.Int32);
+                        //command.Parameters.Add("@uw", MySqlDbType.Int32);
+                        //command.Parameters.Add("@ue", MySqlDbType.Date);
+                        //command.Parameters.Add("@uq", MySqlDbType.Int32);
+                        //command.Parameters["@un"].Value = row.Cells[1].Value;
+                        //command.Parameters["@uw"].Value = row.Cells[2].Value;
+                        //command.Parameters["@ue"].Value = row.Cells[3].Value;
+                        //command.Parameters["@uq"].Value = i;
+                        MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
+                        command1.ExecuteNonQuery();
+                    }
+                    f2.conn.Close();
+                    break;
+            }
+
         }
         public void coluumn()
         {
@@ -254,7 +291,7 @@ namespace is_1_20_LebedAN
             f2.conn.Open();
             s2.table.Clear();
             s2.table.Columns.Clear();
-            string cl = "SELECT * FROM Order;";
+            string cl = "SELECT * FROM Orders;";
             s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
             dataGridView1.DataSource = s2.bSource;
             s2.bSource.DataSource = s2.table;

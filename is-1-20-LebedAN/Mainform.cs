@@ -217,30 +217,37 @@ namespace is_1_20_LebedAN
         // заказы : клинты и время(5) 
         public void Order(object sender, EventArgs e)
         {
-            f2.conn.Open();
-            table.Clear();
-            table.Columns.Clear();
-            string cl = "SELECT * FROM Order;";
-            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-            dataGridView1.DataSource = bSource;
-            bSource.DataSource = table;
-            MyDA.Fill(table);
+            try
+            {
+                f2.conn.Open();
+                table.Clear();
+                table.Columns.Clear();
+                string cl = "SELECT * FROM Orders;";
+                MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+                dataGridView1.DataSource = bSource;
+                bSource.DataSource = table;
+                MyDA.Fill(table);
 
-            dataGridView1.Columns[0].ReadOnly = true;
-            dataGridView1.Columns[1].ReadOnly = true;
-            dataGridView1.Columns[2].ReadOnly = true;
-            dataGridView1.Columns[3].ReadOnly = true;
-
-
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[0].ReadOnly = true;
+                dataGridView1.Columns[1].ReadOnly = true;
+                dataGridView1.Columns[2].ReadOnly = true;
+                dataGridView1.Columns[3].ReadOnly = true;
 
 
-            dataGridView1.ColumnHeadersVisible = true;
-            f2.num(5);
-            f2.conn.Close();
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+
+                dataGridView1.ColumnHeadersVisible = true;
+                f2.num(5);
+                f2.conn.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}");
+            }
         }
         // привилегии и их описание(6)
         public void privilag(object sender, EventArgs e)

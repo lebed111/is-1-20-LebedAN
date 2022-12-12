@@ -26,6 +26,7 @@ namespace Requests
         public void num(int i)
         {
             test = i;
+            number = test;
         }     
 
     }
