@@ -231,13 +231,13 @@ namespace is_1_20_LebedAN
                 dataGridView1.Columns[0].ReadOnly = true;
                 dataGridView1.Columns[1].ReadOnly = true;
                 dataGridView1.Columns[2].ReadOnly = true;
-                dataGridView1.Columns[3].ReadOnly = true;
+                //dataGridView1.Columns[3].ReadOnly = true;
 
 
                 dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                //dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
 
                 dataGridView1.ColumnHeadersVisible = true;

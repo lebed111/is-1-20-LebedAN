@@ -12,6 +12,8 @@ namespace Requests
         public MySqlConnection conn;
         public static int test;
         public int number;
+        public static int lin;
+        public int line;
         public void con()
         {
             string connStr = "server=chuc.caseum.ru;port=33333;user=st_1_20_19;database=is_1_20_st19_KURS;password=14313537;";
@@ -27,6 +29,8 @@ namespace Requests
         {
             test = i;
             number = test;
+            lin = i;
+            line = lin;
         }     
 
     }
