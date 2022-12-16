@@ -64,7 +64,7 @@ namespace is_1_20_LebedAN
             // 
             // metroButton2
             // 
-            this.metroButton2.Location = new System.Drawing.Point(479, 9);
+            this.metroButton2.Location = new System.Drawing.Point(650, 9);
             this.metroButton2.Name = "metroButton2";
             this.metroButton2.Size = new System.Drawing.Size(100, 31);
             this.metroButton2.TabIndex = 2;

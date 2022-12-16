@@ -20,7 +20,7 @@ namespace is_1_20_LebedAN
 
 
         //Вычисление хэша строки и возрат его из метода
-        static string sha256(string randomString)
+        public static string sha256(string randomString)
         {
             //Тут происходит криптографическая магия. Смысл данного метода заключается в том, что строка залетает в метод
             var crypt = new System.Security.Cryptography.SHA256Managed();

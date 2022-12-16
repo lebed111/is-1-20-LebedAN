@@ -17,6 +17,7 @@ namespace is_1_20_LebedAN
     {
         Mainform s2 = new Mainform();
         popd pop = new popd();
+        Authorization a2 = new Authorization();
         class popd
         {
            public string max;
@@ -86,6 +87,7 @@ namespace is_1_20_LebedAN
                     s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
                     dataGridView1.DataSource = s2.bSource;
                     s2.bSource.DataSource = s2.table;
+                    dataGridView1.ColumnHeadersVisible = true;
                     s2.MyDA.Fill(s2.table);
                     break;
                 case 4:
@@ -364,10 +366,23 @@ namespace is_1_20_LebedAN
                     {
                         f2.conn.Open();
                         int rowIndex = i;
+                        int q = 0;
                         DataGridViewRow row = dataGridView1.Rows[rowIndex];
-                        string cl = $"UPDATE Client SET fio_cl = \"{row.Cells[1].Value}\", telephon_cl = \"{row.Cells[2].Value}\"  WHERE id_cl ={row.Cells[0].Value};";
-                        MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
-                        command1.ExecuteNonQuery();
+                        string a = $"SELECT id_cl FROM Client WHERE id_cl = {row.Cells[0].Value}";
+                        MySqlCommand a1 = new MySqlCommand(a, f2.conn);
+                        MySqlDataReader reader1 = a1.ExecuteReader();
+                        while (reader1.Read())
+                        {
+                            q = Convert.ToInt32(reader1[0]);
+                        }
+                        f2.conn.Close();
+                        f2.conn.Open();
+                        if (q == Convert.ToInt32(row.Cells[0].Value))
+                        {
+                            string cl = $"UPDATE Client SET fio_cl = \"{row.Cells[1].Value}\", telephon_cl = \"{row.Cells[2].Value}\"  WHERE id_cl ={row.Cells[0].Value};";
+                            MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
+                            command1.ExecuteNonQuery();
+                        }
                         f2.conn.Close();
                     }
                     catch (Exception ex)
@@ -422,6 +437,100 @@ namespace is_1_20_LebedAN
                 f2.num(1);
                 f2.conn.Close();
             }
+            else if (f2.number == 2)
+            {
+                // обновление новых записей прямо в гриде
+                f2.conn.Open();
+                pop.max = "SELECT COUNT(*) FROM employee;";
+                MySqlCommand command = new MySqlCommand(pop.max, f2.conn);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    pop.maxx = Convert.ToInt32(reader[0]);
+                }
+                f2.conn.Close();
+                for (int i = 0; i < pop.maxx; i++)
+                {
+                    try
+                    {
+                        f2.conn.Open();
+                        int rowIndex = i;
+                        int q = 0;
+                        DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                        string a = $"SELECT id_em FROM employee WHERE id_em = {row.Cells[0].Value}";
+                        MySqlCommand a1 = new MySqlCommand(a, f2.conn);
+                        MySqlDataReader reader1 = a1.ExecuteReader();
+                        while(reader1.Read())
+                        {
+                            q = Convert.ToInt32(reader1[0]);
+                        }
+                        f2.conn.Close();
+                        f2.conn.Open();
+                        if (q == Convert.ToInt32(row.Cells[0].Value))
+                        {
+                            string cl = $"UPDATE employee SET fio_em = \"{row.Cells[1].Value}\", telephone_em = \"{row.Cells[2].Value}\", post_em = \"{row.Cells[3].Value}\"," +
+                                $" role_em = {row.Cells[4].Value}, login_em = \"{row.Cells[5].Value}\", pasword = \"{row.Cells[6].Value}\"WHERE id_em ={row.Cells[0].Value};";
+                            MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
+                            command1.ExecuteNonQuery();
+                        }
+                        f2.conn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}");
+                        f2.conn.Close();
+                    }
+                }
+                // добавление новой записи прямо через грид
+                int rowCount = s2.table.Rows.Count;
+                if (rowCount > pop.maxx)
+                {
+                    int a = rowCount - pop.maxx;
+                    int b = 0;
+                    for (int i = 0; i < a; i++)
+                    {
+                        try
+                        {
+                            f2.conn.Open();
+                            string ba = $"SELECT MAX(id_em) FROM employee;";
+                            MySqlCommand command1 = new MySqlCommand(ba, f2.conn);
+                            MySqlDataReader reader1 = command1.ExecuteReader();
+                            while (reader1.Read())
+                            {
+                                b = Convert.ToInt32(reader1[0]);
+                            }
+                            b++;
+                            f2.conn.Close();
+                            f2.conn.Open();
+                            int rowIndex = pop.maxx++;
+                            DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                            string cl = $"INSERT employee VALUES ( {b},\"{row.Cells[1].Value}\",\"{row.Cells[2].Value}\",\"{row.Cells[3].Value}\",{row.Cells[4].Value},\"{row.Cells[5].Value}\",\"{row.Cells[6].Value}\")";
+                            MySqlCommand command2 = new MySqlCommand(cl, f2.conn);
+                            command2.ExecuteNonQuery();
+                            f2.conn.Close();
+                        }
+                        catch (Exception ex) { MessageBox.Show($"{ex.Message}"); }
+                    }
+                }
+                //обновление таблицы
+                f2.conn.Open();
+                s2.table.Clear();
+                s2.table.Columns.Clear();
+                string coc = "SELECT * FROM employee;";
+                s2.MyDA.SelectCommand = new MySqlCommand(coc, f2.conn);
+                dataGridView1.DataSource = s2.bSource;
+                s2.bSource.DataSource = s2.table;
+                s2.MyDA.Fill(s2.table);
+                coluumn();
+                dataGridView1.ColumnHeadersVisible = true;
+                dataGridView1.Columns[0].ReadOnly = true;
+                f2.num(2);
+                f2.conn.Close();
+            }
+            else if(f2.number == 3)
+            {
+                
+            }
             else if (f2.number == 5)
             {
                   //Обновление новых записий прям в гриде
@@ -438,13 +547,26 @@ namespace is_1_20_LebedAN
                   {
                       try
                       {
-                          f2.conn.Open();
-                          int rowIndex = i;
-                          DataGridViewRow row = dataGridView1.Rows[rowIndex];
-                          string cl = $"UPDATE Orders SET id_cl = {row.Cells[1].Value}, id_ta = {row.Cells[2].Value}  WHERE id_or ={row.Cells[0].Value};";
-                          MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
-                          command1.ExecuteNonQuery();
-                          f2.conn.Close();
+                        f2.conn.Open();
+                        int rowIndex = i;
+                        int q = 0;
+                        DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                        string a = $"SELECT id_or FROM Orders WHERE id_or = {row.Cells[0].Value}";
+                        MySqlCommand a1 = new MySqlCommand(a, f2.conn);
+                        MySqlDataReader reader1 = a1.ExecuteReader();
+                        while (reader1.Read())
+                        {
+                            q = Convert.ToInt32(reader1[0]);
+                        }
+                        f2.conn.Close();
+                        f2.conn.Open();
+                        if (q == Convert.ToInt32(row.Cells[0].Value))
+                        {
+                            string cl = $"UPDATE Orders SET id_cl = {row.Cells[1].Value}, id_ta = {row.Cells[2].Value}  WHERE id_or ={row.Cells[0].Value};";
+                            MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
+                            command1.ExecuteNonQuery();
+                        }
+                        f2.conn.Close();
                       }
                       catch(Exception ex)
                       {
@@ -552,6 +674,7 @@ namespace is_1_20_LebedAN
                 dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
+            dataGridView1.ColumnHeadersVisible = true;
         }
         public void Client(object sender, EventArgs e)
         {
