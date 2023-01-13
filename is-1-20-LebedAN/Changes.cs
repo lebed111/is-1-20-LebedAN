@@ -37,7 +37,7 @@ namespace is_1_20_LebedAN
             ToolStripMenuItem tariffMenuItems = new ToolStripMenuItem("Тарифы");
             ToolStripMenuItem tep_expensMenuItems = new ToolStripMenuItem("Типы расходов");
             //contextMenuStrip2
-            ToolStripMenuItem updateMenuItems = new ToolStripMenuItem("Сохранить");
+            ToolStripMenuItem updateMenuItems = new ToolStripMenuItem("Обновить");
             ToolStripMenuItem deletMenuItems = new ToolStripMenuItem("удалить");
 
             contextMenuStrip1.Items.AddRange(new[] { emploMenuItems, ClientMenuItems, expensMenuItems, incomeMenuItems, OrderMenuItems, privilagMenuItems, providerMenuItems, tariffMenuItems, tep_expensMenuItems });
@@ -89,6 +89,7 @@ namespace is_1_20_LebedAN
                     s2.bSource.DataSource = s2.table;
                     dataGridView1.ColumnHeadersVisible = true;
                     s2.MyDA.Fill(s2.table);
+                    dataGridView1.Columns[2].DefaultCellStyle.Format = "MM/dd/yyyy";
                     break;
                 case 4:
                     cl = "SELECT * FROM income;";
@@ -126,7 +127,7 @@ namespace is_1_20_LebedAN
                     s2.MyDA.Fill(s2.table);
                     break;
                 case 9:
-                    cl = "SELECT * FROM tepes_exenses;";
+                    cl = "SELECT * FROM types_expenses;";
                     s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
                     dataGridView1.DataSource = s2.bSource;
                     s2.bSource.DataSource = s2.table;
@@ -134,6 +135,7 @@ namespace is_1_20_LebedAN
                     break;
             }
             coluumn();
+            dataGridView1.Columns[0].ReadOnly = true;
             f2.conn.Close();
         }
         public void delet (object sender, EventArgs e)
@@ -319,7 +321,7 @@ namespace is_1_20_LebedAN
                 s2.MyDA.Fill(s2.table);
                 coluumn();
                 dataGridView1.ColumnHeadersVisible = true;
-                f2.num(7);
+                f2.num(8);
                 dataGridView1.Columns[0].ReadOnly = true;
                 f2.conn.Close();
             }
@@ -460,7 +462,7 @@ namespace is_1_20_LebedAN
                         string a = $"SELECT id_em FROM employee WHERE id_em = {row.Cells[0].Value}";
                         MySqlCommand a1 = new MySqlCommand(a, f2.conn);
                         MySqlDataReader reader1 = a1.ExecuteReader();
-                        while(reader1.Read())
+                        while (reader1.Read())
                         {
                             q = Convert.ToInt32(reader1[0]);
                         }
@@ -527,26 +529,114 @@ namespace is_1_20_LebedAN
                 f2.num(2);
                 f2.conn.Close();
             }
-            else if(f2.number == 3)
+            else if (f2.number == 3)
             {
-                
+                //Обновление новых записий прям в гриде
+                f2.conn.Open();
+                pop.max = "SELECT COUNT(*) FROM expenses;";
+                MySqlCommand command = new MySqlCommand(pop.max, f2.conn);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    pop.maxx = Convert.ToInt32(reader[0]);
+                }
+                f2.conn.Close();
+                for (int i = 0; i < pop.maxx; i++)
+                {
+                    try
+                    {
+                        f2.conn.Open();
+                        int rowIndex = i;
+                        int q = 0;
+                        DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                        string a = $"SELECT id_ex FROM expenses WHERE id_ex = {row.Cells[0].Value}";
+                        MySqlCommand a1 = new MySqlCommand(a, f2.conn);
+                        MySqlDataReader reader1 = a1.ExecuteReader();
+                        while (reader1.Read())
+                        {
+                            q = Convert.ToInt32(reader1[0]);
+                        }
+                        f2.conn.Close();
+                        f2.conn.Open();
+                        if (q == Convert.ToInt32(row.Cells[0].Value))
+                        {
+                            string s =Convert.ToString(row.Cells[2].Value);
+                            MessageBox.Show($"{s}");
+                            string cl = $"UPDATE expenses SET tepy_ex = {row.Cells[1].Value}, date_ex = \"10.10.2022\", responsible_ex = {row.Cells[3].Value}  WHERE id_ex = {row.Cells[0].Value};";
+                            MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
+                            command1.ExecuteNonQuery();
+                        }
+                        f2.conn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}");
+                        f2.conn.Close();
+                    }
+                }
+                // добавление новой записи прямо через грид
+                int rowCount = s2.table.Rows.Count;
+                if (rowCount > pop.maxx)
+                {
+                    int a = rowCount - pop.maxx;
+                    int b = 0;
+                    for (int i = 0; i < a; i++)
+                    {
+                        try
+                        {
+                            f2.conn.Open();
+                            string ba = $"SELECT MAX(id_ex) FROM expenses;";
+                            MySqlCommand command1 = new MySqlCommand(ba, f2.conn);
+                            MySqlDataReader reader1 = command1.ExecuteReader();
+                            while (reader1.Read())
+                            {
+                                b = Convert.ToInt32(reader1[0]);
+                            }
+                            b++;
+                            f2.conn.Close();
+                            f2.conn.Open();
+                            int rowIndex = pop.maxx++;
+                            DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                            string cl = $"INSERT expenses VALUES ( {b},{row.Cells[1].Value},\"{row.Cells[2].Value}\",{row.Cells[3].Value})";
+                            MySqlCommand command2 = new MySqlCommand(cl, f2.conn);
+                            command2.ExecuteNonQuery();
+                            f2.conn.Close();
+                        }
+                        catch (Exception ex) { MessageBox.Show($"{ex.Message}"); }
+                    }
+                }
+                //обновление таблицы
+                f2.conn.Open();
+                s2.table.Clear();
+                s2.table.Columns.Clear();
+                string coc = "SELECT * FROM expenses;";
+                s2.MyDA.SelectCommand = new MySqlCommand(coc, f2.conn);
+                dataGridView1.DataSource = s2.bSource;
+                s2.bSource.DataSource = s2.table;
+                s2.MyDA.Fill(s2.table);
+                coluumn();
+                dataGridView1.ColumnHeadersVisible = true;
+                dataGridView1.Columns[0].ReadOnly = true;
+                dataGridView1.Columns[2].DefaultCellStyle.Format = "MM/dd/yyyy";
+                f2.num(3);
+                f2.conn.Close();
             }
             else if (f2.number == 5)
             {
-                  //Обновление новых записий прям в гриде
-                  f2.conn.Open();
-                  pop.max = "SELECT COUNT(*) FROM Orders;";
-                  MySqlCommand command = new MySqlCommand(pop.max,f2.conn);
-                  MySqlDataReader reader = command.ExecuteReader();
-                  while (reader.Read())
-                  {
-                      pop.maxx = Convert.ToInt32(reader[0]);
-                  }
-                  f2.conn.Close();            
-                  for (int i = 0; i < pop.maxx; i++)
-                  {
-                      try
-                      {
+                //Обновление новых записий прям в гриде
+                f2.conn.Open();
+                pop.max = "SELECT COUNT(*) FROM Orders;";
+                MySqlCommand command = new MySqlCommand(pop.max, f2.conn);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    pop.maxx = Convert.ToInt32(reader[0]);
+                }
+                f2.conn.Close();
+                for (int i = 0; i < pop.maxx; i++)
+                {
+                    try
+                    {
                         f2.conn.Open();
                         int rowIndex = i;
                         int q = 0;
@@ -562,65 +652,420 @@ namespace is_1_20_LebedAN
                         f2.conn.Open();
                         if (q == Convert.ToInt32(row.Cells[0].Value))
                         {
-                            string cl = $"UPDATE Orders SET id_cl = {row.Cells[1].Value}, id_ta = {row.Cells[2].Value}  WHERE id_or ={row.Cells[0].Value};";
+                            string cl = $"UPDATE Orders SET id_cl = {row.Cells[1].Value}, id_ta = {row.Cells[2].Value}  WHERE id_or = {row.Cells[0].Value};";
                             MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
                             command1.ExecuteNonQuery();
                         }
                         f2.conn.Close();
-                      }
-                      catch(Exception ex)
-                      {
-                          MessageBox.Show($"{ex.Message}");
-                          f2.conn.Close();
-                      }
-                  }
-                  // добавление новой записи прямо через грид
-                  int rowCount = s2.table.Rows.Count;
-                  if(rowCount > pop.maxx)
-                   {
-                        int a = rowCount - pop.maxx;
-                        int b = 0;
-                        for (int i = 0; i < a;i++ )
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}");
+                        f2.conn.Close();
+                    }
+                }
+                // добавление новой записи прямо через грид
+                int rowCount = s2.table.Rows.Count;
+                if (rowCount > pop.maxx)
+                {
+                    int a = rowCount - pop.maxx;
+                    int b = 0;
+                    for (int i = 0; i < a; i++)
+                    {
+                        try
                         {
-                            try
+                            f2.conn.Open();
+                            string ba = $"SELECT MAX(id_or) FROM Orders;";
+                            MySqlCommand command1 = new MySqlCommand(ba, f2.conn);
+                            MySqlDataReader reader1 = command1.ExecuteReader();
+                            while (reader1.Read())
                             {
-                                f2.conn.Open();
-                                string ba = $"SELECT MAX(id_or) FROM Orders;";
-                                MySqlCommand command1 = new MySqlCommand(ba,f2.conn);
-                                MySqlDataReader reader1 = command1.ExecuteReader();
-                                while (reader1.Read())
-                                {
-                                    b = Convert.ToInt32(reader1[0]);
-                                }
-                                b++;
-                                f2.conn.Close();
-                                f2.conn.Open();
-                                int rowIndex = pop.maxx++;
-                                DataGridViewRow row = dataGridView1.Rows[rowIndex];
-                                string cl = $"INSERT Orders VALUES ( {b},{row.Cells[1].Value},{row.Cells[2].Value})";
-                                MySqlCommand command2 = new MySqlCommand(cl, f2.conn);
-                                command2.ExecuteNonQuery();
-                                f2.conn.Close();
+                                b = Convert.ToInt32(reader1[0]);
                             }
-                            catch(Exception ex) { MessageBox.Show($"{ex.Message}"); }
+                            b++;
+                            f2.conn.Close();
+                            f2.conn.Open();
+                            int rowIndex = pop.maxx++;
+                            DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                            string cl = $"INSERT Orders VALUES ( {b},{row.Cells[1].Value},{row.Cells[2].Value})";
+                            MySqlCommand command2 = new MySqlCommand(cl, f2.conn);
+                            command2.ExecuteNonQuery();
+                            f2.conn.Close();
                         }
-                   }
-                  //обновление таблицы
-                  f2.conn.Open();
-                  s2.table.Clear();
-                  s2.table.Columns.Clear();
-                  string coc = "SELECT * FROM Orders;";
-                  s2.MyDA.SelectCommand = new MySqlCommand(coc, f2.conn);
-                  dataGridView1.DataSource = s2.bSource;
-                  s2.bSource.DataSource = s2.table;
-                  s2.MyDA.Fill(s2.table);
-                  coluumn();
-                  dataGridView1.ColumnHeadersVisible = true;
-                  dataGridView1.Columns[0].ReadOnly = true;
-                  f2.num(5);
-                  f2.conn.Close();
+                        catch (Exception ex) { MessageBox.Show($"{ex.Message}"); }
+                    }
+                }
+                //обновление таблицы
+                f2.conn.Open();
+                s2.table.Clear();
+                s2.table.Columns.Clear();
+                string coc = "SELECT * FROM Orders;";
+                s2.MyDA.SelectCommand = new MySqlCommand(coc, f2.conn);
+                dataGridView1.DataSource = s2.bSource;
+                s2.bSource.DataSource = s2.table;
+                s2.MyDA.Fill(s2.table);
+                coluumn();
+                dataGridView1.ColumnHeadersVisible = true;
+                dataGridView1.Columns[0].ReadOnly = true;
+                f2.num(5);
+                f2.conn.Close();
             }
-
+            else if (f2.number == 6)
+            {
+                //Обновление новых записий прям в гриде
+                f2.conn.Open();
+                pop.max = "SELECT COUNT(*) FROM privilege;";
+                MySqlCommand command = new MySqlCommand(pop.max, f2.conn);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    pop.maxx = Convert.ToInt32(reader[0]);
+                }
+                f2.conn.Close();
+                for (int i = 0; i < pop.maxx; i++)
+                {
+                    try
+                    {
+                        f2.conn.Open();
+                        int rowIndex = i;
+                        int q = 0;
+                        DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                        string a = $"SELECT id_pr FROM privilege WHERE id_pr = {row.Cells[0].Value}";
+                        MySqlCommand a1 = new MySqlCommand(a, f2.conn);
+                        MySqlDataReader reader1 = a1.ExecuteReader();
+                        while (reader1.Read())
+                        {
+                            q = Convert.ToInt32(reader1[0]);
+                        }
+                        f2.conn.Close();
+                        f2.conn.Open();
+                        if (q == Convert.ToInt32(row.Cells[0].Value))
+                        {
+                            string cl = $"UPDATE privilege SET name_pr = \"{row.Cells[1].Value}\", level_pr = {row.Cells[2].Value},Description_pr = \"{row.Cells[3].Value}\"  WHERE id_pr ={row.Cells[0].Value};";
+                            MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
+                            command1.ExecuteNonQuery();
+                        }
+                        f2.conn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}");
+                        f2.conn.Close();
+                    }
+                }
+                // добавление новой записи прямо через грид
+                int rowCount = s2.table.Rows.Count;
+                if (rowCount > pop.maxx)
+                {
+                    int a = rowCount - pop.maxx;
+                    int b = 0;
+                    for (int i = 0; i < a; i++)
+                    {
+                        try
+                        {
+                            f2.conn.Open();
+                            string ba = $"SELECT MAX(id_pr) FROM privilege;";
+                            MySqlCommand command1 = new MySqlCommand(ba, f2.conn);
+                            MySqlDataReader reader1 = command1.ExecuteReader();
+                            while (reader1.Read())
+                            {
+                                b = Convert.ToInt32(reader1[0]);
+                            }
+                            b++;
+                            f2.conn.Close();
+                            f2.conn.Open();
+                            int rowIndex = pop.maxx++;
+                            DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                            string cl = $"INSERT privilege VALUES ( {b},\"{row.Cells[1].Value}\",{row.Cells[2].Value},\"{row.Cells[3].Value}\")";
+                            MySqlCommand command2 = new MySqlCommand(cl, f2.conn);
+                            command2.ExecuteNonQuery();
+                            f2.conn.Close();
+                        }
+                        catch (Exception ex) { MessageBox.Show($"{ex.Message}"); }
+                    }
+                }
+                //обновление таблицы
+                f2.conn.Open();
+                s2.table.Clear();
+                s2.table.Columns.Clear();
+                string coc = "SELECT * FROM privilege;";
+                s2.MyDA.SelectCommand = new MySqlCommand(coc, f2.conn);
+                dataGridView1.DataSource = s2.bSource;
+                s2.bSource.DataSource = s2.table;
+                s2.MyDA.Fill(s2.table);
+                coluumn();
+                dataGridView1.ColumnHeadersVisible = true;
+                dataGridView1.Columns[0].ReadOnly = true;
+                f2.num(6);
+                f2.conn.Close();
+            }
+            else if (f2.number == 7)
+            {
+                //Обновление новых записий прям в гриде
+                f2.conn.Open();
+                pop.max = "SELECT COUNT(*) FROM provider;";
+                MySqlCommand command = new MySqlCommand(pop.max, f2.conn);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    pop.maxx = Convert.ToInt32(reader[0]);
+                }
+                f2.conn.Close();
+                for (int i = 0; i < pop.maxx; i++)
+                {
+                    try
+                    {
+                        f2.conn.Open();
+                        int rowIndex = i;
+                        int q = 0;
+                        DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                        string a = $"SELECT id_pr FROM provider WHERE id_pr = {row.Cells[0].Value}";
+                        MySqlCommand a1 = new MySqlCommand(a, f2.conn);
+                        MySqlDataReader reader1 = a1.ExecuteReader();
+                        while (reader1.Read())
+                        {
+                            q = Convert.ToInt32(reader1[0]);
+                        }
+                        f2.conn.Close();
+                        f2.conn.Open();
+                        if (q == Convert.ToInt32(row.Cells[0].Value))
+                        {
+                            string cl = $"UPDATE provider SET telephone_pr = \"{row.Cells[1].Value}\", company_pr = \"{row.Cells[2].Value}\", address_pr = \"{row.Cells[3].Value}\" WHERE id_pr = {row.Cells[0].Value};";
+                            MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
+                            command1.ExecuteNonQuery();
+                        }
+                        f2.conn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}");
+                        f2.conn.Close();
+                    }
+                }
+                // добавление новой записи прямо через грид
+                int rowCount = s2.table.Rows.Count;
+                if (rowCount > pop.maxx)
+                {
+                    int a = rowCount - pop.maxx;
+                    int b = 0;
+                    for (int i = 0; i < a; i++)
+                    {
+                        try
+                        {
+                            f2.conn.Open();
+                            string ba = $"SELECT MAX(id_pr) FROM provider;";
+                            MySqlCommand command1 = new MySqlCommand(ba, f2.conn);
+                            MySqlDataReader reader1 = command1.ExecuteReader();
+                            while (reader1.Read())
+                            {
+                                b = Convert.ToInt32(reader1[0]);
+                            }
+                            b++;
+                            f2.conn.Close();
+                            f2.conn.Open();
+                            int rowIndex = pop.maxx++;
+                            DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                            string cl = $"INSERT provider VALUES ( {b},\"{row.Cells[1].Value}\",\"{row.Cells[2].Value}\",\"{row.Cells[3].Value}\")";
+                            MySqlCommand command2 = new MySqlCommand(cl, f2.conn);
+                            command2.ExecuteNonQuery();
+                            f2.conn.Close();
+                        }
+                        catch (Exception ex) { MessageBox.Show($"{ex.Message}"); }
+                    }
+                }
+                //обновление таблицы
+                f2.conn.Open();
+                s2.table.Clear();
+                s2.table.Columns.Clear();
+                string coc = "SELECT * FROM provider;";
+                s2.MyDA.SelectCommand = new MySqlCommand(coc, f2.conn);
+                dataGridView1.DataSource = s2.bSource;
+                s2.bSource.DataSource = s2.table;
+                s2.MyDA.Fill(s2.table);
+                coluumn();
+                dataGridView1.ColumnHeadersVisible = true;
+                dataGridView1.Columns[0].ReadOnly = true;
+                f2.num(7);
+                f2.conn.Close();
+            }
+            else if (f2.number == 8)
+            {
+                //Обновление новых записий прям в гриде
+                f2.conn.Open();
+                pop.max = "SELECT COUNT(*) FROM tariff;";
+                MySqlCommand command = new MySqlCommand(pop.max, f2.conn);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    pop.maxx = Convert.ToInt32(reader[0]);
+                }
+                f2.conn.Close();
+                for (int i = 0; i < pop.maxx; i++)
+                {
+                    try
+                    {
+                        f2.conn.Open();
+                        int rowIndex = i;
+                        int q = 0;
+                        DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                        string a = $"SELECT id_ta FROM tariff WHERE id_ta = {row.Cells[0].Value}";
+                        MySqlCommand a1 = new MySqlCommand(a, f2.conn);
+                        MySqlDataReader reader1 = a1.ExecuteReader();
+                        while (reader1.Read())
+                        {
+                            q = Convert.ToInt32(reader1[0]);
+                        }
+                        f2.conn.Close();
+                        f2.conn.Open();
+                        if (q == Convert.ToInt32(row.Cells[0].Value))
+                        {
+                            string cl = $"UPDATE tariff SET Name_ta = \"{row.Cells[1].Value}\", Price_ta = {row.Cells[2].Value}, Description_ta = \"{row.Cells[3].Value}\"  WHERE id_ta = {row.Cells[0].Value};";
+                            MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
+                            command1.ExecuteNonQuery();
+                        }
+                        f2.conn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}");
+                        f2.conn.Close();
+                    }
+                }
+                // добавление новой записи прямо через грид
+                int rowCount = s2.table.Rows.Count;
+                if (rowCount > pop.maxx)
+                {
+                    int a = rowCount - pop.maxx;
+                    int b = 0;
+                    for (int i = 0; i < a; i++)
+                    {
+                        try
+                        {
+                            f2.conn.Open();
+                            string ba = $"SELECT MAX(id_ta) FROM tariff;";
+                            MySqlCommand command1 = new MySqlCommand(ba, f2.conn);
+                            MySqlDataReader reader1 = command1.ExecuteReader();
+                            while (reader1.Read())
+                            {
+                                b = Convert.ToInt32(reader1[0]);
+                            }
+                            b++;
+                            f2.conn.Close();
+                            f2.conn.Open();
+                            int rowIndex = pop.maxx++;
+                            DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                            string cl = $"INSERT tariff VALUES ( {b},\"{row.Cells[1].Value}\",{row.Cells[2].Value},\"{row.Cells[3].Value}\")";
+                            MySqlCommand command2 = new MySqlCommand(cl, f2.conn);
+                            command2.ExecuteNonQuery();
+                            f2.conn.Close();
+                        }
+                        catch (Exception ex) { MessageBox.Show($"{ex.Message}"); }
+                    }
+                }
+                //обновление таблицы
+                f2.conn.Open();
+                s2.table.Clear();
+                s2.table.Columns.Clear();
+                string coc = "SELECT * FROM tariff;";
+                s2.MyDA.SelectCommand = new MySqlCommand(coc, f2.conn);
+                dataGridView1.DataSource = s2.bSource;
+                s2.bSource.DataSource = s2.table;
+                s2.MyDA.Fill(s2.table);
+                coluumn();
+                dataGridView1.ColumnHeadersVisible = true;
+                dataGridView1.Columns[0].ReadOnly = true;
+                f2.num(8);
+                f2.conn.Close();
+            }
+            else if (f2.number == 9)
+            {
+                //Обновление новых записий прям в гриде
+                f2.conn.Open();
+                pop.max = "SELECT COUNT(*) FROM types_expenses;";
+                MySqlCommand command = new MySqlCommand(pop.max, f2.conn);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    pop.maxx = Convert.ToInt32(reader[0]);
+                }
+                f2.conn.Close();
+                for (int i = 0; i < pop.maxx; i++)
+                {
+                    try
+                    {
+                        f2.conn.Open();
+                        int rowIndex = i;
+                        int q = 0;
+                        DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                        string a = $"SELECT id_ty FROM types_expenses WHERE id_ty = {row.Cells[0].Value}";
+                        MySqlCommand a1 = new MySqlCommand(a, f2.conn);
+                        MySqlDataReader reader1 = a1.ExecuteReader();
+                        while (reader1.Read())
+                        {
+                            q = Convert.ToInt32(reader1[0]);
+                        }
+                        f2.conn.Close();
+                        f2.conn.Open();
+                        if (q == Convert.ToInt32(row.Cells[0].Value))
+                        {
+                            string cl = $"UPDATE types_expenses SET name_ty = \"{row.Cells[1].Value}\", price_ty = {row.Cells[2].Value}, provider_ty = {row.Cells[3].Value}, employee_ty = {row.Cells[4].Value}  WHERE id_ty = {row.Cells[0].Value};";
+                            MySqlCommand command1 = new MySqlCommand(cl, f2.conn);
+                            command1.ExecuteNonQuery();
+                        }
+                        f2.conn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}");
+                        f2.conn.Close();
+                    }
+                }
+                // добавление новой записи прямо через грид
+                int rowCount = s2.table.Rows.Count;
+                if (rowCount > pop.maxx)
+                {
+                    int a = rowCount - pop.maxx;
+                    int b = 0;
+                    for (int i = 0; i < a; i++)
+                    {
+                        try
+                        {
+                            f2.conn.Open();
+                            string ba = $"SELECT MAX(id_ty) FROM types_expenses;";
+                            MySqlCommand command1 = new MySqlCommand(ba, f2.conn);
+                            MySqlDataReader reader1 = command1.ExecuteReader();
+                            while (reader1.Read())
+                            {
+                                b = Convert.ToInt32(reader1[0]);
+                            }
+                            b++;
+                            f2.conn.Close();
+                            f2.conn.Open();
+                            int rowIndex = pop.maxx++;
+                            DataGridViewRow row = dataGridView1.Rows[rowIndex];
+                            string cl = $"INSERT types_expenses VALUES ( {b},\"{row.Cells[1].Value}\",{row.Cells[2].Value},{row.Cells[3].Value},{row.Cells[4].Value})";
+                            MySqlCommand command2 = new MySqlCommand(cl, f2.conn);
+                            command2.ExecuteNonQuery();
+                            f2.conn.Close();
+                        }
+                        catch (Exception ex) { MessageBox.Show($"{ex.Message}"); }
+                    }
+                }
+                //обновление таблицы
+                f2.conn.Open();
+                s2.table.Clear();
+                s2.table.Columns.Clear();
+                string coc = "SELECT * FROM types_expenses;";
+                s2.MyDA.SelectCommand = new MySqlCommand(coc, f2.conn);
+                dataGridView1.DataSource = s2.bSource;
+                s2.bSource.DataSource = s2.table;
+                s2.MyDA.Fill(s2.table);
+                coluumn();
+                dataGridView1.ColumnHeadersVisible = true;
+                dataGridView1.Columns[0].ReadOnly = true;
+                f2.num(9);
+                f2.conn.Close();
+            }
         }
         public void coluumn()
         {
@@ -717,6 +1162,7 @@ namespace is_1_20_LebedAN
             s2.bSource.DataSource = s2.table;
             s2.MyDA.Fill(s2.table);
             coluumn();
+            dataGridView1.Columns[2].DefaultCellStyle.Format = "MM/dd/yyyy";
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(3);
             f2.conn.Close();
@@ -802,7 +1248,7 @@ namespace is_1_20_LebedAN
             f2.conn.Open();
             s2.table.Clear();
             s2.table.Columns.Clear();
-            string cl = "SELECT * FROM tepes_exenses;";
+            string cl = "SELECT * FROM types_expenses;";
             s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
             dataGridView1.DataSource = s2.bSource;
             s2.bSource.DataSource = s2.table;
@@ -839,6 +1285,11 @@ namespace is_1_20_LebedAN
         {
             int rowIndex = e.RowIndex;
             f2.line = rowIndex;
+        }
+
+        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+
         }
     }
 }

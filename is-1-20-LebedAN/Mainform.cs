@@ -333,7 +333,7 @@ namespace is_1_20_LebedAN
             f2.conn.Open();
             table.Clear();
             table.Columns.Clear();
-            string cl = "SELECT * FROM tepes_exenses;";
+            string cl = "SELECT * FROM types_expenses;";
             MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
             dataGridView1.DataSource = bSource;
             bSource.DataSource = table;
@@ -344,14 +344,12 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[2].ReadOnly = true;
             dataGridView1.Columns[3].ReadOnly = true;
             dataGridView1.Columns[4].ReadOnly = true;
-            dataGridView1.Columns[5].ReadOnly = true;
 
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(9);

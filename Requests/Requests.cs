@@ -32,6 +32,5 @@ namespace Requests
             lin = i;
             line = lin;
         }     
-
     }
 }

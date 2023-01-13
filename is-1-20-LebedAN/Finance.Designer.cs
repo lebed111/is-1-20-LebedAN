@@ -193,7 +193,7 @@ namespace is_1_20_LebedAN
             this.metroButton3.Name = "metroButton3";
             this.metroButton3.Size = new System.Drawing.Size(104, 23);
             this.metroButton3.TabIndex = 15;
-            this.metroButton3.Text = "Выход";
+            this.metroButton3.Text = "назад";
             this.metroButton3.UseSelectable = true;
             this.metroButton3.Click += new System.EventHandler(this.metroButton3_Click);
             // 
