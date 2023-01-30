@@ -31,12 +31,11 @@ namespace is_1_20_LebedAN
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.metroButton2 = new MetroFramework.Controls.MetroButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.metroButton4 = new MetroFramework.Controls.MetroButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.приветToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.обновитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -53,15 +52,6 @@ namespace is_1_20_LebedAN
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView1_CellValidating);
-            // 
-            // metroButton1
-            // 
-            this.metroButton1.Location = new System.Drawing.Point(319, 9);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(127, 31);
-            this.metroButton1.TabIndex = 1;
-            this.metroButton1.Text = "Обновить";
-            this.metroButton1.UseSelectable = true;
             // 
             // metroButton2
             // 
@@ -83,20 +73,11 @@ namespace is_1_20_LebedAN
             this.label1.TabIndex = 3;
             this.label1.Text = "Изменения";
             // 
-            // metroButton4
-            // 
-            this.metroButton4.Location = new System.Drawing.Point(160, 9);
-            this.metroButton4.Name = "metroButton4";
-            this.metroButton4.Size = new System.Drawing.Size(126, 31);
-            this.metroButton4.TabIndex = 5;
-            this.metroButton4.Text = "Изменить бд";
-            this.metroButton4.UseSelectable = true;
-            this.metroButton4.Click += new System.EventHandler(this.metroButton4_Click);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.приветToolStripMenuItem});
+            this.приветToolStripMenuItem,
+            this.обновитьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(20, 60);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(718, 24);
@@ -107,8 +88,16 @@ namespace is_1_20_LebedAN
             // приветToolStripMenuItem
             // 
             this.приветToolStripMenuItem.Name = "приветToolStripMenuItem";
-            this.приветToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.приветToolStripMenuItem.Text = "привет";
+            this.приветToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.приветToolStripMenuItem.Text = "Изменить бд";
+            this.приветToolStripMenuItem.Click += new System.EventHandler(this.приветToolStripMenuItem_Click);
+            // 
+            // обновитьToolStripMenuItem
+            // 
+            this.обновитьToolStripMenuItem.Name = "обновитьToolStripMenuItem";
+            this.обновитьToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.обновитьToolStripMenuItem.Text = "Обновить";
+            this.обновитьToolStripMenuItem.Click += new System.EventHandler(this.обновитьToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -125,10 +114,8 @@ namespace is_1_20_LebedAN
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(758, 340);
-            this.Controls.Add(this.metroButton4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.metroButton2);
-            this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -145,13 +132,12 @@ namespace is_1_20_LebedAN
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private MetroFramework.Controls.MetroButton metroButton1;
         private MetroFramework.Controls.MetroButton metroButton2;
         private System.Windows.Forms.Label label1;
-        private MetroFramework.Controls.MetroButton metroButton4;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem приветToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem обновитьToolStripMenuItem;
     }
 }

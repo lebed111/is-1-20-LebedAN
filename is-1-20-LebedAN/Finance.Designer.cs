@@ -48,6 +48,9 @@ namespace is_1_20_LebedAN
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
+            this.metroButton4 = new MetroFramework.Controls.MetroButton();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -67,6 +70,7 @@ namespace is_1_20_LebedAN
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 1;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -199,33 +203,55 @@ namespace is_1_20_LebedAN
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(386, 24);
+            this.dateTimePicker1.Location = new System.Drawing.Point(303, 24);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(143, 20);
             this.dateTimePicker1.TabIndex = 16;
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(237, 24);
+            this.dateTimePicker2.Location = new System.Drawing.Point(154, 24);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(143, 20);
             this.dateTimePicker2.TabIndex = 17;
+            this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(173, 24);
+            this.label8.Location = new System.Drawing.Point(90, 24);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(58, 16);
             this.label8.TabIndex = 18;
             this.label8.Text = "Периуд";
+            // 
+            // metroButton4
+            // 
+            this.metroButton4.Location = new System.Drawing.Point(452, 24);
+            this.metroButton4.Name = "metroButton4";
+            this.metroButton4.Size = new System.Drawing.Size(65, 20);
+            this.metroButton4.TabIndex = 19;
+            this.metroButton4.Text = "Обновить";
+            this.metroButton4.UseSelectable = true;
+            this.metroButton4.Click += new System.EventHandler(this.metroButton4_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(505, 224);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.TabIndex = 20;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Finance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(535, 241);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.metroButton4);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.dateTimePicker1);
@@ -247,6 +273,7 @@ namespace is_1_20_LebedAN
             this.Controls.Add(this.label1);
             this.Name = "Finance";
             this.Load += new System.EventHandler(this.Finance_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,5 +300,7 @@ namespace is_1_20_LebedAN
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label8;
+        private MetroFramework.Controls.MetroButton metroButton4;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
