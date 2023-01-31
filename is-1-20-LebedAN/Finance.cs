@@ -35,9 +35,10 @@ namespace is_1_20_LebedAN
         }
         public void calculations()
         {
-            var dt = Convert.ToDateTime(dateTimePicker2.Value);
+            f2.date(Convert.ToString(dateTimePicker2.Value), Convert.ToString(dateTimePicker1.Value));
+            var dt = Convert.ToDateTime(f2.date1);
             var str = string.Format("{0}-{1}-{2} {3}:{4}:{5}", dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second);
-            var dt1 = Convert.ToDateTime(dateTimePicker1.Value);
+            var dt1 = Convert.ToDateTime(f2.date2);
             var str1 = string.Format("{0}-{1}-{2} {3}:{4}:{5}", dt1.Year, dt1.Month, dt1.Day, dt1.Hour, dt1.Minute, dt1.Second);
             // подсчет клиентов
             f2.conn.Open();
@@ -124,6 +125,12 @@ namespace is_1_20_LebedAN
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
  
+        }
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            orders f2 = new orders();
+            f2.Show();
         }
     }
 }

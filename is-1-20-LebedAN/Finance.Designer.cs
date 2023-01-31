@@ -180,6 +180,7 @@ namespace is_1_20_LebedAN
             this.metroButton1.TabIndex = 13;
             this.metroButton1.Text = "Подробнее заказах";
             this.metroButton1.UseSelectable = true;
+            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
             // 
             // metroButton2
             // 
