@@ -28,6 +28,8 @@ namespace Requests
                 conn = new MySqlConnection(connStr1);
             }
             number = test;
+            date1 = dat1;
+            date2 = dat2;
         }
         public void num(int i)
         {
