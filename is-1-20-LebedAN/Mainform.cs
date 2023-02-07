@@ -258,6 +258,8 @@ namespace is_1_20_LebedAN
         {
             try
             {
+                f2.fid_ta();
+                f2.fidtamax();
                 f2.fid_cl();
                 f2.fid_clmax();
                 f2.conn.Open();
