@@ -30,89 +30,29 @@ namespace is_1_20_LebedAN
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
-            this.metroButton2 = new MetroFramework.Controls.MetroButton();
-            this.metroButton3 = new MetroFramework.Controls.MetroButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.metroButton4 = new MetroFramework.Controls.MetroButton();
-            this.metroButton5 = new MetroFramework.Controls.MetroButton();
-            this.metroButton6 = new MetroFramework.Controls.MetroButton();
             this.metroButton7 = new MetroFramework.Controls.MetroButton();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.label2 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.выбратьБдToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.краткийПодсчетПрибылиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.внестиИзмененияВТаблицыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // metroButton1
-            // 
-            this.metroButton1.BackColor = System.Drawing.Color.White;
-            this.metroButton1.Location = new System.Drawing.Point(10, 152);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(128, 38);
-            this.metroButton1.TabIndex = 4;
-            this.metroButton1.Text = "изменить";
-            this.metroButton1.UseSelectable = true;
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
-            // 
-            // metroButton2
-            // 
-            this.metroButton2.Location = new System.Drawing.Point(10, 205);
-            this.metroButton2.Name = "metroButton2";
-            this.metroButton2.Size = new System.Drawing.Size(128, 38);
-            this.metroButton2.TabIndex = 5;
-            this.metroButton2.Text = "закрыть бд";
-            this.metroButton2.UseSelectable = true;
-            this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
-            // 
-            // metroButton3
-            // 
-            this.metroButton3.Location = new System.Drawing.Point(10, 97);
-            this.metroButton3.Name = "metroButton3";
-            this.metroButton3.Size = new System.Drawing.Size(128, 38);
-            this.metroButton3.TabIndex = 6;
-            this.metroButton3.Text = "Выбрать бд ";
-            this.metroButton3.UseSelectable = true;
-            this.metroButton3.Click += new System.EventHandler(this.metroButton3_Click_1);
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(162, 97);
+            this.dataGridView1.Location = new System.Drawing.Point(23, 97);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(722, 198);
+            this.dataGridView1.Size = new System.Drawing.Size(861, 198);
             this.dataGridView1.TabIndex = 7;
-            // 
-            // metroButton4
-            // 
-            this.metroButton4.Location = new System.Drawing.Point(10, 258);
-            this.metroButton4.Name = "metroButton4";
-            this.metroButton4.Size = new System.Drawing.Size(128, 37);
-            this.metroButton4.TabIndex = 8;
-            this.metroButton4.Text = "Выход";
-            this.metroButton4.UseSelectable = true;
-            this.metroButton4.Click += new System.EventHandler(this.metroButton4_Click);
-            // 
-            // metroButton5
-            // 
-            this.metroButton5.Location = new System.Drawing.Point(306, 36);
-            this.metroButton5.Name = "metroButton5";
-            this.metroButton5.Size = new System.Drawing.Size(128, 43);
-            this.metroButton5.TabIndex = 9;
-            this.metroButton5.Text = "графики";
-            this.metroButton5.UseSelectable = true;
-            // 
-            // metroButton6
-            // 
-            this.metroButton6.Location = new System.Drawing.Point(162, 36);
-            this.metroButton6.Name = "metroButton6";
-            this.metroButton6.Size = new System.Drawing.Size(128, 43);
-            this.metroButton6.TabIndex = 10;
-            this.metroButton6.Text = "финансы";
-            this.metroButton6.UseSelectable = true;
-            this.metroButton6.Click += new System.EventHandler(this.metroButton6_Click);
             // 
             // metroButton7
             // 
@@ -138,7 +78,7 @@ namespace is_1_20_LebedAN
             // 
             this.pictureBox1.Image = global::is_1_20_LebedAN.Properties.Resources.дельфин;
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(10, 36);
+            this.pictureBox1.Location = new System.Drawing.Point(23, 14);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(137, 43);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -162,46 +102,73 @@ namespace is_1_20_LebedAN
             this.label2.TabIndex = 14;
             this.label2.Text = "Просмотр данных";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.выбратьБдToolStripMenuItem,
+            this.краткийПодсчетПрибылиToolStripMenuItem,
+            this.внестиИзмененияВТаблицыToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(20, 60);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(867, 24);
+            this.menuStrip1.TabIndex = 15;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // выбратьБдToolStripMenuItem
+            // 
+            this.выбратьБдToolStripMenuItem.Name = "выбратьБдToolStripMenuItem";
+            this.выбратьБдToolStripMenuItem.Size = new System.Drawing.Size(141, 20);
+            this.выбратьБдToolStripMenuItem.Text = "Просмотреть таблицу";
+            this.выбратьБдToolStripMenuItem.Click += new System.EventHandler(this.выбратьБдToolStripMenuItem_Click);
+            // 
+            // краткийПодсчетПрибылиToolStripMenuItem
+            // 
+            this.краткийПодсчетПрибылиToolStripMenuItem.Name = "краткийПодсчетПрибылиToolStripMenuItem";
+            this.краткийПодсчетПрибылиToolStripMenuItem.Size = new System.Drawing.Size(164, 20);
+            this.краткийПодсчетПрибылиToolStripMenuItem.Text = "краткий подсчет прибыли";
+            this.краткийПодсчетПрибылиToolStripMenuItem.Click += new System.EventHandler(this.краткийПодсчетПрибылиToolStripMenuItem_Click);
+            // 
+            // внестиИзмененияВТаблицыToolStripMenuItem
+            // 
+            this.внестиИзмененияВТаблицыToolStripMenuItem.Name = "внестиИзмененияВТаблицыToolStripMenuItem";
+            this.внестиИзмененияВТаблицыToolStripMenuItem.Size = new System.Drawing.Size(180, 20);
+            this.внестиИзмененияВТаблицыToolStripMenuItem.Text = "Внести изменения в таблицы";
+            this.внестиИзмененияВТаблицыToolStripMenuItem.Click += new System.EventHandler(this.внестиИзмененияВТаблицыToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(907, 339);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.metroButton7);
-            this.Controls.Add(this.metroButton6);
-            this.Controls.Add(this.metroButton5);
-            this.Controls.Add(this.metroButton4);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.metroButton3);
-            this.Controls.Add(this.metroButton2);
-            this.Controls.Add(this.metroButton1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Mainform";
             this.Load += new System.EventHandler(this.Mainform_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-
-        private MetroFramework.Controls.MetroButton metroButton1;
-        private MetroFramework.Controls.MetroButton metroButton2;
-        private MetroFramework.Controls.MetroButton metroButton3;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private MetroFramework.Controls.MetroButton metroButton4;
-        private MetroFramework.Controls.MetroButton metroButton5;
-        private MetroFramework.Controls.MetroButton metroButton6;
         private MetroFramework.Controls.MetroButton metroButton7;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem выбратьБдToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem краткийПодсчетПрибылиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem внестиИзмененияВТаблицыToolStripMenuItem;
     }
 }
 

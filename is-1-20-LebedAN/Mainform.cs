@@ -34,7 +34,7 @@ namespace is_1_20_LebedAN
 
             contextMenuStrip1.Items.AddRange(new[] { emploMenuItems, ClientMenuItems,expensMenuItems,incomeMenuItems,OrderMenuItems,privilagMenuItems,providerMenuItems,tariffMenuItems,tep_expensMenuItems});
 
-            metroButton3.ContextMenuStrip = contextMenuStrip1;
+            //metroButton3.ContextMenuStrip = contextMenuStrip1;
 
             ClientMenuItems.Click += Client;
             emploMenuItems.Click += emploe;
@@ -83,7 +83,11 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Наименование товара";
+            dataGridView1.Columns[2].HeaderText = "Цена";
+            dataGridView1.Columns[3].HeaderText = "Краткое описание";
+            dataGridView1.RowHeadersVisible = false;
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(8);
             f2.conn.Close();
@@ -125,6 +129,10 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "ФИО";
+            dataGridView1.Columns[2].HeaderText = "Телефон";
+
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(1);
             f2.conn.Close();
@@ -142,7 +150,6 @@ namespace is_1_20_LebedAN
             dataGridView1.DataSource = bSource;
             MyDA.Fill(table);
 
-            dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[6].Visible = false;
 
             dataGridView1.Columns[1].ReadOnly = true;
@@ -157,6 +164,12 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "ФИО";
+            dataGridView1.Columns[2].HeaderText = "Телефон";
+            dataGridView1.Columns[3].HeaderText = "Должность";
+            dataGridView1.Columns[4].HeaderText = "Роль в программе";
+            dataGridView1.Columns[5].HeaderText = "Логин";
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(2);
             f2.conn.Close();
@@ -164,26 +177,52 @@ namespace is_1_20_LebedAN
         // расходы(3)
         public void expens(object sender, EventArgs e)
         {
+            f2.ressposmax();
+            f2.reespoc();
+            f2.expens();
+            f2.epensmax();
             f2.conn.Open();
             table.Clear();
             table.Columns.Clear();
-            string cl = "SELECT * FROM expenses;";
+            string cl = "SELECT id_ex,date_ex FROM expenses;";
             MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
             dataGridView1.DataSource = bSource;
             bSource.DataSource = table;
             MyDA.Fill(table);
-
+            table.Columns.Add("Column1");
+            int f = f2.expen.Count();
+            for (int i = 0; i < f;i++)
+            {
+                string q = f2.expen.Dequeue();              
+                string w = "";
+                f2.tupe_ex.TryGetValue(q,out w);
+                this.dataGridView1[2, i].Value = Convert.ToString(w);
+            }
+            table.Columns.Add("");
+            int r = f2.respomax.Count();
+            for(int i = 0; i<r;i++)
+            {
+                string q = f2.respomax.Dequeue();
+                string w = "";
+                f2.respo.TryGetValue(q, out w);
+                this.dataGridView1[3, i].Value = Convert.ToString(w);
+            }
             dataGridView1.Columns[0].ReadOnly = true;
             dataGridView1.Columns[1].ReadOnly = true;
             dataGridView1.Columns[2].ReadOnly = true;
             dataGridView1.Columns[3].ReadOnly = true;
-            dataGridView1.Columns[4].ReadOnly = true;
+
 
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Дата";
+            dataGridView1.Columns[2].HeaderText = "Тип расхода";
+            dataGridView1.Columns[3].HeaderText = "Ответственный";
+
 
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(3);
@@ -219,25 +258,45 @@ namespace is_1_20_LebedAN
         {
             try
             {
+                f2.fid_cl();
+                f2.fid_clmax();
                 f2.conn.Open();
                 table.Clear();
                 table.Columns.Clear();
-                string cl = "SELECT * FROM Orders;";
+                string cl = "SELECT id_or,date FROM Orders;";
                 MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
                 dataGridView1.DataSource = bSource;
                 bSource.DataSource = table;
                 MyDA.Fill(table);
+                table.Columns.Add("Column1");
+                int f = f2.id_clmax.Count();
+                for (int i = 0; i < f; i++)
+                {
+                    string q = f2.id_clmax.Dequeue();
+                    string w = "";
+                    f2.id_cl.TryGetValue(q, out w);
+                    this.dataGridView1[2, i].Value = Convert.ToString(w);
+                }
+                table.Columns.Add("");
+                int r = f2.id_tamax.Count();
+                for (int i = 0; i < r; i++)
+                {
+                    string q = f2.id_tamax.Dequeue();
+                    string w = "";
+                    f2.id_ta.TryGetValue(q, out w);
+                    this.dataGridView1[3, i].Value = Convert.ToString(w);
+                }
 
                 dataGridView1.Columns[0].ReadOnly = true;
                 dataGridView1.Columns[1].ReadOnly = true;
                 dataGridView1.Columns[2].ReadOnly = true;
-                //dataGridView1.Columns[3].ReadOnly = true;
+                dataGridView1.Columns[3].ReadOnly = true;
 
 
                 dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                //dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
 
                 dataGridView1.ColumnHeadersVisible = true;
@@ -323,6 +382,11 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Наименование товара";
+            dataGridView1.Columns[2].HeaderText = "Цена";
+            dataGridView1.Columns[3].HeaderText = "Краткое описание";
+
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(8);
             f2.conn.Close();
@@ -384,5 +448,23 @@ namespace is_1_20_LebedAN
             contextMenuStrip1.Show(Cursor.Position);
         }
 
+        private void краткийПодсчетПрибылиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Finance f2 = new Finance();
+            f2.Show();
+        }
+
+        private void выбратьБдToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Show(Cursor.Position);
+        }
+
+        private void внестиИзмененияВТаблицыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Changes f2 = new Changes();
+            f2.Show();
+        }
     }
 }

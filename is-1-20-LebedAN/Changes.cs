@@ -74,6 +74,9 @@ namespace is_1_20_LebedAN
                     dataGridView1.DataSource = s2.bSource;
                     s2.bSource.DataSource = s2.table;
                     s2.MyDA.Fill(s2.table);
+                    dataGridView1.Columns[0].HeaderText = "ID";
+                    dataGridView1.Columns[1].HeaderText = "ФИО";
+                    dataGridView1.Columns[2].HeaderText = "Телефон";
                     break;
                 case 2:
                     cl = "SELECT * FROM employee;";
@@ -81,6 +84,13 @@ namespace is_1_20_LebedAN
                     dataGridView1.DataSource = s2.bSource;
                     s2.bSource.DataSource = s2.table;
                     s2.MyDA.Fill(s2.table);
+                    dataGridView1.Columns[0].HeaderText = "ID";
+                    dataGridView1.Columns[1].HeaderText = "ФИО";
+                    dataGridView1.Columns[2].HeaderText = "Телефон";
+                    dataGridView1.Columns[3].HeaderText = "Должность";
+                    dataGridView1.Columns[4].HeaderText = "Роль в программе";
+                    dataGridView1.Columns[5].HeaderText = "Логин";
+                    dataGridView1.Columns[6].HeaderText = "Пароль в sha256";
                     break;
                 case 3:
                     cl = "SELECT * FROM expenses;";
@@ -90,6 +100,10 @@ namespace is_1_20_LebedAN
                     dataGridView1.ColumnHeadersVisible = true;
                     dataGridView1.Columns[2].DefaultCellStyle.Format = "yyyy-MM-dd";
                     s2.MyDA.Fill(s2.table);
+                    dataGridView1.Columns[0].HeaderText = "ID";
+                    dataGridView1.Columns[1].HeaderText = "Тип расхода";
+                    dataGridView1.Columns[2].HeaderText = "Дата";
+                    dataGridView1.Columns[3].HeaderText = "Ответственный";
                     break;
                 case 4:
                     cl = "SELECT * FROM income;";
@@ -126,6 +140,10 @@ namespace is_1_20_LebedAN
                     dataGridView1.DataSource = s2.bSource;
                     s2.bSource.DataSource = s2.table;
                     s2.MyDA.Fill(s2.table);
+                    dataGridView1.Columns[0].HeaderText = "ID";
+                    dataGridView1.Columns[1].HeaderText = "Наименование товара";
+                    dataGridView1.Columns[2].HeaderText = "Цена";
+                    dataGridView1.Columns[3].HeaderText = "Краткое описание";
                     break;
                 case 9:
                     cl = "SELECT * FROM types_expenses;";
@@ -152,216 +170,230 @@ namespace is_1_20_LebedAN
             }
             if (result == DialogResult.Yes)
             {
-                if (f2.number == 1)
+                try
                 {
-                    f2.conn.Open();
-                    DataGridViewRow row = dataGridView1.Rows[f2.line];
-                    string com = $"DELETE FROM Client WHERE id_cl = {row.Cells[0].Value}";
-                    MySqlCommand command = new MySqlCommand(com, f2.conn);
-                    command.ExecuteNonQuery();
-                    f2.conn.Close();
-                    //Обновление таблицы
-                    f2.conn.Open();
-                    s2.table.Clear();
-                    s2.table.Columns.Clear();
-                    string cl = "SELECT * FROM Client;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    coluumn();
-                    dataGridView1.ColumnHeadersVisible = true;
-                    f2.num(1);
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    f2.conn.Close();
-                }
-                else if (f2.number == 2)
-                {
-                    f2.conn.Open();
-                    DataGridViewRow row = dataGridView1.Rows[f2.line];
-                    string com = $"DELETE FROM employee WHERE id_em = {row.Cells[0].Value}";
-                    MySqlCommand command = new MySqlCommand(com, f2.conn);
-                    command.ExecuteNonQuery();
-                    f2.conn.Close();
-                    //Обновление таблицы
-                    f2.conn.Open();
-                    s2.table.Clear();
-                    s2.table.Columns.Clear();
-                    string cl = "SELECT * FROM employee;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    coluumn();
-                    dataGridView1.ColumnHeadersVisible = true;
-                    f2.num(3);
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    f2.conn.Close();
-                }
-                else if (f2.number == 3)
-                {
-                    f2.conn.Open();
-                    DataGridViewRow row = dataGridView1.Rows[f2.line];
-                    string com = $"DELETE FROM expenses WHERE id_cex = {row.Cells[0].Value}";
-                    MySqlCommand command = new MySqlCommand(com, f2.conn);
-                    command.ExecuteNonQuery();
-                    f2.conn.Close();
-                    //Обновление таблицы
-                    f2.conn.Open();
-                    s2.table.Clear();
-                    s2.table.Columns.Clear();
-                    string cl = "SELECT * FROM expenses;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    coluumn();
-                    dataGridView1.ColumnHeadersVisible = true;
-                    dataGridView1.Columns[2].DefaultCellStyle.Format = "yyyy-MM-dd";
-                    f2.num(3);
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    f2.conn.Close();
-                }
-                else if (f2.number == 4)
-                {
-                    f2.conn.Open();
-                    DataGridViewRow row = dataGridView1.Rows[f2.line];
-                    string com = $"DELETE FROM income WHERE id_in = {row.Cells[0].Value}";
-                    MySqlCommand command = new MySqlCommand(com, f2.conn);
-                    command.ExecuteNonQuery();
-                    f2.conn.Close();
-                    //Обновление таблицы
-                    f2.conn.Open();
-                    s2.table.Clear();
-                    s2.table.Columns.Clear();
-                    string cl = "SELECT * FROM income;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    coluumn();
-                    dataGridView1.ColumnHeadersVisible = true;
-                    f2.num(4);
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    f2.conn.Close();
-                }
-                else if (f2.number == 5)
-                {
-                    f2.conn.Open();
-                    DataGridViewRow row = dataGridView1.Rows[f2.line];
-                    string com = $"DELETE FROM Orders WHERE id_or = {row.Cells[0].Value}";
-                    MySqlCommand command = new MySqlCommand(com, f2.conn);
-                    command.ExecuteNonQuery();
-                    f2.conn.Close();
-                    //Обновление таблицы
-                    f2.conn.Open();
-                    s2.table.Clear();
-                    s2.table.Columns.Clear();
-                    string cl = "SELECT * FROM Orders;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    coluumn();
-                    dataGridView1.ColumnHeadersVisible = true;
-                    dataGridView1.Columns[3].DefaultCellStyle.Format = "yyyy-MM-dd";
-                    f2.num(5);
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    f2.conn.Close();
+                    if (f2.number == 1)
+                    {
+                        f2.conn.Open();
+                        DataGridViewRow row = dataGridView1.Rows[f2.line];
+                        string com = $"DELETE FROM Client WHERE id_cl = {row.Cells[0].Value}";
+                        MySqlCommand command = new MySqlCommand(com, f2.conn);
+                        command.ExecuteNonQuery();
+                        f2.conn.Close();
+                        //Обновление таблицы
+                        f2.conn.Open();
+                        s2.table.Clear();
+                        s2.table.Columns.Clear();
+                        string cl = "SELECT * FROM Client;";
+                        s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+                        dataGridView1.DataSource = s2.bSource;
+                        s2.bSource.DataSource = s2.table;
+                        s2.MyDA.Fill(s2.table);
+                        coluumn();
+                        dataGridView1.ColumnHeadersVisible = true;
+                        f2.num(1);
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        f2.conn.Close();
+                    }
+                    else if (f2.number == 2)
+                    {
+                        f2.conn.Open();
+                        DataGridViewRow row = dataGridView1.Rows[f2.line];
+                        string com = $"DELETE FROM employee WHERE id_em = {row.Cells[0].Value}";
+                        MySqlCommand command = new MySqlCommand(com, f2.conn);
+                        command.ExecuteNonQuery();
+                        f2.conn.Close();
+                        //Обновление таблицы
+                        f2.conn.Open();
+                        s2.table.Clear();
+                        s2.table.Columns.Clear();
+                        string cl = "SELECT * FROM employee;";
+                        s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+                        dataGridView1.DataSource = s2.bSource;
+                        s2.bSource.DataSource = s2.table;
+                        s2.MyDA.Fill(s2.table);
+                        coluumn();
+                        dataGridView1.ColumnHeadersVisible = true;
+                        f2.num(3);
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        f2.conn.Close();
+                    }
+                    else if (f2.number == 3)
+                    {
 
+                        f2.conn.Open();
+                        DataGridViewRow row = dataGridView1.Rows[f2.line];
+                        string com = $"DELETE FROM expenses WHERE id_cex = {row.Cells[0].Value}";
+                        MySqlCommand command = new MySqlCommand(com, f2.conn);
+                        command.ExecuteNonQuery();
+                        f2.conn.Close();
+                        //Обновление таблицы
+                        f2.conn.Open();
+                        s2.table.Clear();
+                        s2.table.Columns.Clear();
+                        string cl = "SELECT * FROM expenses;";
+                        s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+                        dataGridView1.DataSource = s2.bSource;
+                        s2.bSource.DataSource = s2.table;
+                        s2.MyDA.Fill(s2.table);
+                        coluumn();
+                        dataGridView1.ColumnHeadersVisible = true;
+                        dataGridView1.Columns[2].DefaultCellStyle.Format = "yyyy-MM-dd";
+                        f2.num(3);
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        dataGridView1.Columns[0].HeaderText = "ID";
+                        dataGridView1.Columns[1].HeaderText = "Тип расхода";
+                        dataGridView1.Columns[2].HeaderText = "Дата";
+                        dataGridView1.Columns[3].HeaderText = "Ответственный";
+                        f2.conn.Close();
+                    }
+                    else if (f2.number == 4)
+                    {
+                        f2.conn.Open();
+                        DataGridViewRow row = dataGridView1.Rows[f2.line];
+                        string com = $"DELETE FROM income WHERE id_in = {row.Cells[0].Value}";
+                        MySqlCommand command = new MySqlCommand(com, f2.conn);
+                        command.ExecuteNonQuery();
+                        f2.conn.Close();
+                        //Обновление таблицы
+                        f2.conn.Open();
+                        s2.table.Clear();
+                        s2.table.Columns.Clear();
+                        string cl = "SELECT * FROM income;";
+                        s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+                        dataGridView1.DataSource = s2.bSource;
+                        s2.bSource.DataSource = s2.table;
+                        s2.MyDA.Fill(s2.table);
+                        coluumn();
+                        dataGridView1.ColumnHeadersVisible = true;
+                        f2.num(4);
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        f2.conn.Close();
+                    }
+                    else if (f2.number == 5)
+                    {
+                        f2.conn.Open();
+                        DataGridViewRow row = dataGridView1.Rows[f2.line];
+                        string com = $"DELETE FROM Orders WHERE id_or = {row.Cells[0].Value}";
+                        MySqlCommand command = new MySqlCommand(com, f2.conn);
+                        command.ExecuteNonQuery();
+                        f2.conn.Close();
+                        //Обновление таблицы
+                        f2.conn.Open();
+                        s2.table.Clear();
+                        s2.table.Columns.Clear();
+                        string cl = "SELECT * FROM Orders;";
+                        s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+                        dataGridView1.DataSource = s2.bSource;
+                        s2.bSource.DataSource = s2.table;
+                        s2.MyDA.Fill(s2.table);
+                        coluumn();
+                        dataGridView1.ColumnHeadersVisible = true;
+                        dataGridView1.Columns[3].DefaultCellStyle.Format = "yyyy-MM-dd";
+                        f2.num(5);
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        f2.conn.Close();
+
+                    }
+                    else if (f2.number == 6)
+                    {
+                        f2.conn.Open();
+                        DataGridViewRow row = dataGridView1.Rows[f2.line];
+                        string com = $"DELETE FROM privilege WHERE id_pr = {row.Cells[0].Value}";
+                        MySqlCommand command = new MySqlCommand(com, f2.conn);
+                        command.ExecuteNonQuery();
+                        f2.conn.Close();
+                        //Обновление таблицы
+                        f2.conn.Open();
+                        s2.table.Clear();
+                        s2.table.Columns.Clear();
+                        string cl = "SELECT * FROM privilege;";
+                        s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+                        dataGridView1.DataSource = s2.bSource;
+                        s2.bSource.DataSource = s2.table;
+                        s2.MyDA.Fill(s2.table);
+                        coluumn();
+                        dataGridView1.ColumnHeadersVisible = true;
+                        f2.num(6);
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        f2.conn.Close();
+                    }
+                    else if (f2.number == 7)
+                    {
+                        f2.conn.Open();
+                        DataGridViewRow row = dataGridView1.Rows[f2.line];
+                        string com = $"DELETE FROM privilege WHERE id_pr = {row.Cells[0].Value}";
+                        MySqlCommand command = new MySqlCommand(com, f2.conn);
+                        command.ExecuteNonQuery();
+                        f2.conn.Close();
+                        //Обновление таблицы
+                        f2.conn.Open();
+                        s2.table.Clear();
+                        s2.table.Columns.Clear();
+                        string cl = "SELECT * FROM privilege;";
+                        s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+                        dataGridView1.DataSource = s2.bSource;
+                        s2.bSource.DataSource = s2.table;
+                        s2.MyDA.Fill(s2.table);
+                        coluumn();
+                        dataGridView1.ColumnHeadersVisible = true;
+                        f2.num(7);
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        f2.conn.Close();
+                    }
+                    else if (f2.number == 8)
+                    {
+                        f2.conn.Open();
+                        DataGridViewRow row = dataGridView1.Rows[f2.line];
+                        string com = $"DELETE FROM tariff WHERE id_ta = {row.Cells[0].Value}";
+                        MySqlCommand command = new MySqlCommand(com, f2.conn);
+                        command.ExecuteNonQuery();
+                        f2.conn.Close();
+                        //Обновление таблицы
+                        f2.conn.Open();
+                        s2.table.Clear();
+                        s2.table.Columns.Clear();
+                        string cl = "SELECT * FROM tariff;";
+                        s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+                        dataGridView1.DataSource = s2.bSource;
+                        s2.bSource.DataSource = s2.table;
+                        s2.MyDA.Fill(s2.table);
+                        coluumn();
+                        dataGridView1.ColumnHeadersVisible = true;
+                        dataGridView1.Columns[0].HeaderText = "ID";
+                        dataGridView1.Columns[1].HeaderText = "Наименование товара";
+                        dataGridView1.Columns[2].HeaderText = "Цена";
+                        dataGridView1.Columns[3].HeaderText = "Краткое описание";
+                        f2.num(8);
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        f2.conn.Close();
+                    }
+                    else if (f2.number == 9)
+                    {
+                        f2.conn.Open();
+                        DataGridViewRow row = dataGridView1.Rows[f2.line];
+                        string com = $"DELETE FROM types_expenses WHERE id_ty = {row.Cells[0].Value}";
+                        MySqlCommand command = new MySqlCommand(com, f2.conn);
+                        command.ExecuteNonQuery();
+                        f2.conn.Close();
+                        //Обновление таблицы
+                        f2.conn.Open();
+                        s2.table.Clear();
+                        s2.table.Columns.Clear();
+                        string cl = "SELECT * FROM types_expenses;";
+                        s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
+                        dataGridView1.DataSource = s2.bSource;
+                        s2.bSource.DataSource = s2.table;
+                        s2.MyDA.Fill(s2.table);
+                        coluumn();
+                        dataGridView1.ColumnHeadersVisible = true;
+                        f2.num(7);
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        f2.conn.Close();
+                    }
                 }
-                else if (f2.number == 6)
-                {
-                    f2.conn.Open();
-                    DataGridViewRow row = dataGridView1.Rows[f2.line];
-                    string com = $"DELETE FROM privilege WHERE id_pr = {row.Cells[0].Value}";
-                    MySqlCommand command = new MySqlCommand(com, f2.conn);
-                    command.ExecuteNonQuery();
-                    f2.conn.Close();
-                    //Обновление таблицы
-                    f2.conn.Open();
-                    s2.table.Clear();
-                    s2.table.Columns.Clear();
-                    string cl = "SELECT * FROM privilege;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    coluumn();
-                    dataGridView1.ColumnHeadersVisible = true;
-                    f2.num(6);
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    f2.conn.Close();
-                }
-                else if (f2.number == 7)
-                {
-                    f2.conn.Open();
-                    DataGridViewRow row = dataGridView1.Rows[f2.line];
-                    string com = $"DELETE FROM privilege WHERE id_pr = {row.Cells[0].Value}";
-                    MySqlCommand command = new MySqlCommand(com, f2.conn);
-                    command.ExecuteNonQuery();
-                    f2.conn.Close();
-                    //Обновление таблицы
-                    f2.conn.Open();
-                    s2.table.Clear();
-                    s2.table.Columns.Clear();
-                    string cl = "SELECT * FROM privilege;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    coluumn();
-                    dataGridView1.ColumnHeadersVisible = true;
-                    f2.num(7);
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    f2.conn.Close();
-                }
-                else if (f2.number == 8)
-                {
-                    f2.conn.Open();
-                    DataGridViewRow row = dataGridView1.Rows[f2.line];
-                    string com = $"DELETE FROM tariff WHERE id_ta = {row.Cells[0].Value}";
-                    MySqlCommand command = new MySqlCommand(com, f2.conn);
-                    command.ExecuteNonQuery();
-                    f2.conn.Close();
-                    //Обновление таблицы
-                    f2.conn.Open();
-                    s2.table.Clear();
-                    s2.table.Columns.Clear();
-                    string cl = "SELECT * FROM tariff;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    coluumn();
-                    dataGridView1.ColumnHeadersVisible = true;
-                    f2.num(8);
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    f2.conn.Close();
-                }
-                else if (f2.number == 9)
-                {
-                    f2.conn.Open();
-                    DataGridViewRow row = dataGridView1.Rows[f2.line];
-                    string com = $"DELETE FROM types_expenses WHERE id_ty = {row.Cells[0].Value}";
-                    MySqlCommand command = new MySqlCommand(com, f2.conn);
-                    command.ExecuteNonQuery();
-                    f2.conn.Close();
-                    //Обновление таблицы
-                    f2.conn.Open();
-                    s2.table.Clear();
-                    s2.table.Columns.Clear();
-                    string cl = "SELECT * FROM types_expenses;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    coluumn();
-                    dataGridView1.ColumnHeadersVisible = true;
-                    f2.num(7);
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    f2.conn.Close();
-                }
+                catch { }
+                finally { f2.conn.Close(); }
             }
             else if (result == DialogResult.No) { }
         }//удаление
@@ -449,6 +481,9 @@ namespace is_1_20_LebedAN
                 dataGridView1.DataSource = s2.bSource;
                 s2.bSource.DataSource = s2.table;
                 s2.MyDA.Fill(s2.table);
+                dataGridView1.Columns[0].HeaderText = "ID";
+                dataGridView1.Columns[1].HeaderText = "ФИО";
+                dataGridView1.Columns[2].HeaderText = "Телефон";
                 coluumn();
                 dataGridView1.ColumnHeadersVisible = true;
                 dataGridView1.Columns[0].ReadOnly = true;
@@ -542,6 +577,13 @@ namespace is_1_20_LebedAN
                 coluumn();
                 dataGridView1.ColumnHeadersVisible = true;
                 dataGridView1.Columns[0].ReadOnly = true;
+                dataGridView1.Columns[0].HeaderText = "ID";
+                dataGridView1.Columns[1].HeaderText = "ФИО";
+                dataGridView1.Columns[2].HeaderText = "Телефон";
+                dataGridView1.Columns[3].HeaderText = "Должность";
+                dataGridView1.Columns[4].HeaderText = "Роль в программе";
+                dataGridView1.Columns[5].HeaderText = "Логин";
+                dataGridView1.Columns[6].HeaderText = "Пароль в sha256";
                 f2.num(2);
                 f2.conn.Close();
             }
@@ -637,6 +679,10 @@ namespace is_1_20_LebedAN
                 dataGridView1.ColumnHeadersVisible = true;
                 dataGridView1.Columns[0].ReadOnly = true;
                 dataGridView1.Columns[2].DefaultCellStyle.Format = "yyyy-MM-dd";
+                dataGridView1.Columns[0].HeaderText = "ID";
+                dataGridView1.Columns[1].HeaderText = "Тип расхода";
+                dataGridView1.Columns[2].HeaderText = "Дата";
+                dataGridView1.Columns[3].HeaderText = "Ответственный";
                 f2.num(3);
                 f2.conn.Close();
             }
@@ -998,6 +1044,10 @@ namespace is_1_20_LebedAN
                 coluumn();
                 dataGridView1.ColumnHeadersVisible = true;
                 dataGridView1.Columns[0].ReadOnly = true;
+                dataGridView1.Columns[0].HeaderText = "ID";
+                dataGridView1.Columns[1].HeaderText = "Наименование товара";
+                dataGridView1.Columns[2].HeaderText = "Цена";
+                dataGridView1.Columns[3].HeaderText = "Краткое описание";
                 f2.num(8);
                 f2.conn.Close();
             }
@@ -1157,6 +1207,9 @@ namespace is_1_20_LebedAN
             s2.MyDA.Fill(s2.table);
             coluumn();
             dataGridView1.ColumnHeadersVisible = true;
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "ФИО";
+            dataGridView1.Columns[2].HeaderText = "Телефон";
             f2.num(1);
             f2.conn.Close();
         }// клиенты(1)
@@ -1172,6 +1225,13 @@ namespace is_1_20_LebedAN
             s2.MyDA.Fill(s2.table);
             coluumn();
             dataGridView1.ColumnHeadersVisible = true;
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "ФИО";
+            dataGridView1.Columns[2].HeaderText = "Телефон";
+            dataGridView1.Columns[3].HeaderText = "Должность";
+            dataGridView1.Columns[4].HeaderText = "Роль в программе";
+            dataGridView1.Columns[5].HeaderText = "Логин";
+            dataGridView1.Columns[6].HeaderText = "Пароль в sha256";
             f2.num(2);
             f2.conn.Close();
         }// сотрудники(2)
@@ -1188,6 +1248,10 @@ namespace is_1_20_LebedAN
             coluumn();
             dataGridView1.ColumnHeadersVisible = true;
             dataGridView1.Columns[2].DefaultCellStyle.Format = "yyyy-MM-dd";
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Тип расхода";
+            dataGridView1.Columns[2].HeaderText = "Дата";
+            dataGridView1.Columns[3].HeaderText = "Ответственный";
             f2.num(3);
             f2.conn.Close();
         }// расходы(3)
@@ -1265,6 +1329,10 @@ namespace is_1_20_LebedAN
             s2.MyDA.Fill(s2.table);
             coluumn();
             dataGridView1.ColumnHeadersVisible = true;
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Наименование товара";
+            dataGridView1.Columns[2].HeaderText = "Цена";
+            dataGridView1.Columns[3].HeaderText = "Краткое описание";
             f2.num(8);
             f2.conn.Close();
         }// расценка всех покупок(8)
