@@ -143,7 +143,8 @@ namespace is_1_20_LebedAN
 
         private void metroButton2_Click(object sender, EventArgs e)
         {
-
+            expens f2 = new expens();
+            f2.Show();
         }
 
         private void metroButton3_Click(object sender, EventArgs e)

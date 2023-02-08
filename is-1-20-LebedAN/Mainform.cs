@@ -279,7 +279,7 @@ namespace is_1_20_LebedAN
                     f2.id_cl.TryGetValue(q, out w);
                     this.dataGridView1[2, i].Value = Convert.ToString(w);
                 }
-                table.Columns.Add("");
+                table.Columns.Add("Column2");
                 int r = f2.id_tamax.Count();
                 for (int i = 0; i < r; i++)
                 {
@@ -294,12 +294,15 @@ namespace is_1_20_LebedAN
                 dataGridView1.Columns[2].ReadOnly = true;
                 dataGridView1.Columns[3].ReadOnly = true;
 
-
                 dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+                dataGridView1.Columns[0].HeaderText = "ID";
+                dataGridView1.Columns[1].HeaderText = "Дата";
+                dataGridView1.Columns[2].HeaderText = "ФИО клиента";
+                dataGridView1.Columns[3].HeaderText = "Заказ";
 
                 dataGridView1.ColumnHeadersVisible = true;
                 f2.num(5);
@@ -332,6 +335,11 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Название";
+            dataGridView1.Columns[2].HeaderText = "Уровень доступа";
+            dataGridView1.Columns[3].HeaderText = "Описание";
+
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(6);
             f2.conn.Close();
@@ -357,6 +365,11 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Телефон";
+            dataGridView1.Columns[2].HeaderText = "Компания";
+            dataGridView1.Columns[3].HeaderText = "Адресс";
 
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(7);
@@ -409,13 +422,16 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[1].ReadOnly = true;
             dataGridView1.Columns[2].ReadOnly = true;
             dataGridView1.Columns[3].ReadOnly = true;
-            dataGridView1.Columns[4].ReadOnly = true;
 
             dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Наименование";
+            dataGridView1.Columns[2].HeaderText = "Цена";
+            dataGridView1.Columns[3].HeaderText = "Поставщик";
 
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(9);

@@ -37,7 +37,7 @@ namespace is_1_20_LebedAN
             ToolStripMenuItem tariffMenuItems = new ToolStripMenuItem("Тарифы");
             ToolStripMenuItem tep_expensMenuItems = new ToolStripMenuItem("Типы расходов");
             //contextMenuStrip2
-            ToolStripMenuItem updateMenuItems = new ToolStripMenuItem("Обновить");
+            ToolStripMenuItem updateMenuItems = new ToolStripMenuItem("Сохранить");
             ToolStripMenuItem deletMenuItems = new ToolStripMenuItem("удалить");
 
             contextMenuStrip1.Items.AddRange(new[] { emploMenuItems, ClientMenuItems, expensMenuItems, incomeMenuItems, OrderMenuItems, privilagMenuItems, providerMenuItems, tariffMenuItems, tep_expensMenuItems });
@@ -117,8 +117,17 @@ namespace is_1_20_LebedAN
                     s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
                     dataGridView1.DataSource = s2.bSource;
                     s2.bSource.DataSource = s2.table;
-                    dataGridView1.Columns[3].DefaultCellStyle.Format = "yyyy-MM-dd";
                     s2.MyDA.Fill(s2.table);
+                    coluumn();
+                    dataGridView1.ColumnHeadersVisible = true;
+                    dataGridView1.Columns[3].DefaultCellStyle.Format = "yyyy-MM-dd";
+                    f2.num(5);
+                    dataGridView1.Columns[0].ReadOnly = true;
+                    dataGridView1.Columns[0].HeaderText = "ID";
+                    dataGridView1.Columns[1].HeaderText = "Клиент ID";
+                    dataGridView1.Columns[2].HeaderText = "Заказ ID";
+                    dataGridView1.Columns[3].HeaderText = "Дата";
+                    f2.conn.Close();
                     break;
                 case 6:
                    cl = "SELECT * FROM privilege;";
@@ -126,6 +135,10 @@ namespace is_1_20_LebedAN
                     dataGridView1.DataSource = s2.bSource;
                     s2.bSource.DataSource = s2.table;
                     s2.MyDA.Fill(s2.table);
+                    dataGridView1.Columns[0].HeaderText = "ID";
+                    dataGridView1.Columns[1].HeaderText = "Название";
+                    dataGridView1.Columns[2].HeaderText = "Уровень доступа";
+                    dataGridView1.Columns[3].HeaderText = "Описание";
                     break;
                 case 7:
                     cl = "SELECT * FROM provider;";
@@ -133,6 +146,10 @@ namespace is_1_20_LebedAN
                     dataGridView1.DataSource = s2.bSource;
                     s2.bSource.DataSource = s2.table;
                     s2.MyDA.Fill(s2.table);
+                    dataGridView1.Columns[0].HeaderText = "ID";
+                    dataGridView1.Columns[1].HeaderText = "Телефон";
+                    dataGridView1.Columns[2].HeaderText = "Компания";
+                    dataGridView1.Columns[3].HeaderText = "Адресс";
                     break;
                 case 8:
                     cl = "SELECT * FROM tariff;";
@@ -151,6 +168,10 @@ namespace is_1_20_LebedAN
                     dataGridView1.DataSource = s2.bSource;
                     s2.bSource.DataSource = s2.table;
                     s2.MyDA.Fill(s2.table);
+                    dataGridView1.Columns[0].HeaderText = "ID";
+                    dataGridView1.Columns[1].HeaderText = "Наименование";
+                    dataGridView1.Columns[2].HeaderText = "Цена";
+                    dataGridView1.Columns[3].HeaderText = "Поставщик";
                     break;
             }
             coluumn();
@@ -216,6 +237,10 @@ namespace is_1_20_LebedAN
                         dataGridView1.ColumnHeadersVisible = true;
                         f2.num(3);
                         dataGridView1.Columns[0].ReadOnly = true;
+                        dataGridView1.Columns[0].HeaderText = "ID";
+                        dataGridView1.Columns[1].HeaderText = "Наименование";
+                        dataGridView1.Columns[2].HeaderText = "Цена";
+                        dataGridView1.Columns[3].HeaderText = "Поставщик";
                         f2.conn.Close();
                     }
                     else if (f2.number == 3)
@@ -291,6 +316,10 @@ namespace is_1_20_LebedAN
                         dataGridView1.ColumnHeadersVisible = true;
                         dataGridView1.Columns[3].DefaultCellStyle.Format = "yyyy-MM-dd";
                         f2.num(5);
+                        dataGridView1.Columns[0].HeaderText = "ID";
+                        dataGridView1.Columns[1].HeaderText = "Клиент ID";
+                        dataGridView1.Columns[2].HeaderText = "Заказ ID";
+                        dataGridView1.Columns[3].HeaderText = "Дата";
                         dataGridView1.Columns[0].ReadOnly = true;
                         f2.conn.Close();
 
@@ -316,6 +345,10 @@ namespace is_1_20_LebedAN
                         dataGridView1.ColumnHeadersVisible = true;
                         f2.num(6);
                         dataGridView1.Columns[0].ReadOnly = true;
+                        dataGridView1.Columns[0].HeaderText = "ID";
+                        dataGridView1.Columns[1].HeaderText = "Название";
+                        dataGridView1.Columns[2].HeaderText = "Уровень доступа";
+                        dataGridView1.Columns[3].HeaderText = "Описание";
                         f2.conn.Close();
                     }
                     else if (f2.number == 7)
@@ -339,6 +372,10 @@ namespace is_1_20_LebedAN
                         dataGridView1.ColumnHeadersVisible = true;
                         f2.num(7);
                         dataGridView1.Columns[0].ReadOnly = true;
+                        dataGridView1.Columns[0].HeaderText = "ID";
+                        dataGridView1.Columns[1].HeaderText = "Телефон";
+                        dataGridView1.Columns[2].HeaderText = "Компания";
+                        dataGridView1.Columns[3].HeaderText = "Адресс";
                         f2.conn.Close();
                     }
                     else if (f2.number == 8)
@@ -396,6 +433,7 @@ namespace is_1_20_LebedAN
                 finally { f2.conn.Close(); }
             }
             else if (result == DialogResult.No) { }
+            dataGridView1.Columns[0].ReadOnly = true;
         }//удаление
         public void update(object sender, EventArgs e)
         {
@@ -777,6 +815,10 @@ namespace is_1_20_LebedAN
                 dataGridView1.ColumnHeadersVisible = true;
                 dataGridView1.Columns[0].ReadOnly = true;
                 dataGridView1.Columns[3].DefaultCellStyle.Format = "yyyy-MM-dd";
+                dataGridView1.Columns[0].HeaderText = "ID";
+                dataGridView1.Columns[1].HeaderText = "Клиент ID";
+                dataGridView1.Columns[2].HeaderText = "Заказ ID";
+                dataGridView1.Columns[3].HeaderText = "Дата";
                 f2.num(5);
                 f2.conn.Close();
             }
@@ -866,6 +908,10 @@ namespace is_1_20_LebedAN
                 coluumn();
                 dataGridView1.ColumnHeadersVisible = true;
                 dataGridView1.Columns[0].ReadOnly = true;
+                dataGridView1.Columns[0].HeaderText = "ID";
+                dataGridView1.Columns[1].HeaderText = "Название";
+                dataGridView1.Columns[2].HeaderText = "Уровень доступа";
+                dataGridView1.Columns[3].HeaderText = "Описание";
                 f2.num(6);
                 f2.conn.Close();
             }
@@ -955,6 +1001,10 @@ namespace is_1_20_LebedAN
                 coluumn();
                 dataGridView1.ColumnHeadersVisible = true;
                 dataGridView1.Columns[0].ReadOnly = true;
+                dataGridView1.Columns[0].HeaderText = "ID";
+                dataGridView1.Columns[1].HeaderText = "Телефон";
+                dataGridView1.Columns[2].HeaderText = "Компания";
+                dataGridView1.Columns[3].HeaderText = "Адресс";
                 f2.num(7);
                 f2.conn.Close();
             }
@@ -1137,9 +1187,14 @@ namespace is_1_20_LebedAN
                 coluumn();
                 dataGridView1.ColumnHeadersVisible = true;
                 dataGridView1.Columns[0].ReadOnly = true;
+                dataGridView1.Columns[0].HeaderText = "ID";
+                dataGridView1.Columns[1].HeaderText = "Наименование";
+                dataGridView1.Columns[2].HeaderText = "Цена";
+                dataGridView1.Columns[3].HeaderText = "Поставщик";
                 f2.num(9);
                 f2.conn.Close();
             }
+            dataGridView1.Columns[0].ReadOnly = true;
         }//обновить
         public void coluumn()
         {
@@ -1194,6 +1249,7 @@ namespace is_1_20_LebedAN
                 dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
             dataGridView1.ColumnHeadersVisible = true;
+            dataGridView1.Columns[0].ReadOnly = true;
         }//колонки
         public void Client(object sender, EventArgs e)
         {
@@ -1285,6 +1341,10 @@ namespace is_1_20_LebedAN
             dataGridView1.Columns[3].DefaultCellStyle.Format = "yyyy-MM-dd";
             f2.num(5);
             dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Клиент ID";
+            dataGridView1.Columns[2].HeaderText = "Заказ ID";
+            dataGridView1.Columns[3].HeaderText = "Дата";
             f2.conn.Close();
         }
         public void privilag(object sender, EventArgs e)
@@ -1314,6 +1374,10 @@ namespace is_1_20_LebedAN
             s2.MyDA.Fill(s2.table);
             coluumn();
             dataGridView1.ColumnHeadersVisible = true;
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Название";
+            dataGridView1.Columns[2].HeaderText = "Уровень доступа";
+            dataGridView1.Columns[3].HeaderText = "Описание";
             f2.num(7);
             f2.conn.Close();
         }// поставщик (7)
@@ -1349,6 +1413,10 @@ namespace is_1_20_LebedAN
             coluumn();
             dataGridView1.ColumnHeadersVisible = true;
             f2.num(9);
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Наименование";
+            dataGridView1.Columns[2].HeaderText = "Цена";
+            dataGridView1.Columns[3].HeaderText = "Поставщик";
             f2.conn.Close();
         }// типы расходов(9)
 

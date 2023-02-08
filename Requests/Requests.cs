@@ -66,7 +66,6 @@ namespace Requests
             }
             conn.Close();
         }
-
         public void expens()
         {
             conn.Open();
@@ -136,13 +135,13 @@ namespace Requests
         public void fid_ta()
         {
             conn.Open();
-            id_cl.Clear();
+            id_ta.Clear();
             string c = "SELECT id_ta,Name_ta FROM tariff";
             MySqlCommand command = new MySqlCommand(c, conn);
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                id_cl.Add(Convert.ToString(reader[0]), Convert.ToString(reader[1]));
+                id_ta.Add(Convert.ToString(reader[0]), Convert.ToString(reader[1]));
             }
             conn.Close();
         }
