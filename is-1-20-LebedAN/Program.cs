@@ -20,6 +20,7 @@ namespace is_1_20_LebedAN
         public static string auth_fio = null;
         //Статичное поле, которое хранит количество привелегий пользователя
         public static int auth_role = 0;
+        public static string eapsedTime = "";
     }
  
     static class Program

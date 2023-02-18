@@ -484,5 +484,10 @@ namespace is_1_20_LebedAN
             Changes f2 = new Changes();
             f2.Show();
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
