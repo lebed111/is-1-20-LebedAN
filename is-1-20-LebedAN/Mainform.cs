@@ -99,7 +99,131 @@ namespace is_1_20_LebedAN
             Changes f2 = new Changes();
             f2.Show();
         }
-
+        public void coluumn()
+        {
+            int colum = dataGridView1.Columns.Count;
+            if (colum == 1)
+            {
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            if (colum == 2)
+            {
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            if (colum == 3)
+            {
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            if (colum == 4)
+            {
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            if (colum == 5)
+            {
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            if (colum == 6)
+            {
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            if (colum == 7)
+            {
+                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            dataGridView1.ColumnHeadersVisible = true;
+            dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
+        }//колонки
+        public void Clint()
+        {
+            f2.Client();
+            dataGridView1.Columns.Clear();
+            table.Columns.Clear();
+            table.Rows.Clear();
+            table.Columns.Add("ID");
+            table.Columns.Add("ФИО");
+            table.Columns.Add("Телефон");
+            for (int i = 0; i < f2.st1.Count; i++)
+            {
+                table.Rows.Add(f2.st1[i], f2.st2[i], f2.st3[i]);
+            }
+            coluumn();
+        }
+        public void emploee()
+        {
+            f2.employee();
+            dataGridView1.Columns.Clear();
+            table.Columns.Clear();
+            table.Rows.Clear();
+            table.Columns.Add("ID");
+            table.Columns.Add("ФИО");
+            table.Columns.Add("Телефон");
+            table.Columns.Add("Должность");
+            table.Columns.Add("уровень доступа");
+            table.Columns.Add("Логин");
+            table.Columns.Add("Пароль");
+            for (int i = 0; i < f2.st1.Count; i++)
+            {
+                table.Rows.Add(f2.st1[i], f2.st2[i], f2.st3[i],f2.st4[i],f2.st5[i],f2.st6[i],f2.st7[i]);
+            }
+            coluumn();
+        }
+        public void expenses()
+        {
+            f2.expenses();
+            dataGridView1.Columns.Clear();
+            table.Columns.Clear();
+            table.Rows.Clear();
+            table.Columns.Add("ID");
+            table.Columns.Add("Краткое описание");
+            table.Columns.Add("Цена");
+            table.Columns.Add("Дата оплаты");
+            table.Columns.Add("Ответственный");
+            table.Columns.Add("Поставщик");
+            for (int i = 0; i < f2.st1.Count; i++)
+            {
+                table.Rows.Add(f2.st1[i], f2.st2[i], f2.st3[i], f2.st4[i], f2.st5[i], f2.st6[i]);
+            }
+            coluumn();
+        }
+        public void orders()
+        {
+            f2.orders();
+            dataGridView1.Columns.Clear();
+            table.Columns.Clear();
+            table.Rows.Clear();
+            table.Columns.Add("ID");
+            table.Columns.Add("Клиент");
+            table.Columns.Add("Цена");
+            table.Columns.Add("Дата оплаты");
+            table.Columns.Add("Время действия");
+            for (int i = 0; i < f2.st1.Count; i++)
+            {
+                table.Rows.Add(f2.st1[i], f2.st2[i], f2.st3[i], f2.st4[i], f2.st5[i]);
+            }
+            coluumn();
+        }
         private void metroButton2_Click(object sender, EventArgs e)
         {
             
@@ -112,121 +236,17 @@ namespace is_1_20_LebedAN
         // клиенты(1)
         public void Client(object sender, EventArgs e)
         {
-            f2.conn.Open();
-            table.Clear();
-            table.Columns.Clear();
-            string cl = "SELECT * FROM Client;";
-            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-            dataGridView1.DataSource = bSource;
-            bSource.DataSource = table;
-            MyDA.Fill(table);
-
-            dataGridView1.Columns[0].ReadOnly = true;
-            dataGridView1.Columns[1].ReadOnly = true;
-            dataGridView1.Columns[2].ReadOnly = true;
-
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-            dataGridView1.Columns[0].HeaderText = "ID";
-            dataGridView1.Columns[1].HeaderText = "ФИО";
-            dataGridView1.Columns[2].HeaderText = "Телефон";
-
-            dataGridView1.ColumnHeadersVisible = true;
-            f2.num(1);
-            f2.conn.Close();
+            Clint();
         }
         // сотрудники(2)
         public void emploe(object sender, EventArgs e)
         {
-            f2.conn.Open();
-            table.Clear();
-            table.Columns.Clear();
-
-            string cl = "SELECT * FROM employee;";
-            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-            bSource.DataSource = table;
-            dataGridView1.DataSource = bSource;
-            MyDA.Fill(table);
-
-            dataGridView1.Columns[6].Visible = false;
-
-            dataGridView1.Columns[1].ReadOnly = true;
-            dataGridView1.Columns[2].ReadOnly = true;
-            dataGridView1.Columns[3].ReadOnly = true;
-            dataGridView1.Columns[4].ReadOnly = true;
-            dataGridView1.Columns[5].ReadOnly = true;
-
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-            dataGridView1.Columns[0].HeaderText = "ID";
-            dataGridView1.Columns[1].HeaderText = "ФИО";
-            dataGridView1.Columns[2].HeaderText = "Телефон";
-            dataGridView1.Columns[3].HeaderText = "Должность";
-            dataGridView1.Columns[4].HeaderText = "Роль в программе";
-            dataGridView1.Columns[5].HeaderText = "Логин";
-            dataGridView1.ColumnHeadersVisible = true;
-            f2.num(2);
-            f2.conn.Close();
+            emploee();
         }
         // расходы(3)
         public void expens(object sender, EventArgs e)
         {
-            f2.ressposmax();
-            f2.reespoc();
-            f2.expens();
-            f2.epensmax();
-            f2.conn.Open();
-            table.Clear();
-            table.Columns.Clear();
-            string cl = "SELECT id_ex,date_ex FROM expenses;";
-            MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-            dataGridView1.DataSource = bSource;
-            bSource.DataSource = table;
-            MyDA.Fill(table);
-            table.Columns.Add("Column1");
-            int f = f2.expen.Count();
-            for (int i = 0; i < f;i++)
-            {
-                string q = f2.expen.Dequeue();              
-                string w = "";
-                f2.tupe_ex.TryGetValue(q,out w);
-                this.dataGridView1[2, i].Value = Convert.ToString(w);
-            }
-            table.Columns.Add("");
-            int r = f2.respomax.Count();
-            for(int i = 0; i<r;i++)
-            {
-                string q = f2.respomax.Dequeue();
-                string w = "";
-                f2.respo.TryGetValue(q, out w);
-                this.dataGridView1[3, i].Value = Convert.ToString(w);
-            }
-            dataGridView1.Columns[0].ReadOnly = true;
-            dataGridView1.Columns[1].ReadOnly = true;
-            dataGridView1.Columns[2].ReadOnly = true;
-            dataGridView1.Columns[3].ReadOnly = true;
-
-
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-            dataGridView1.Columns[0].HeaderText = "ID";
-            dataGridView1.Columns[1].HeaderText = "Дата";
-            dataGridView1.Columns[2].HeaderText = "Тип расхода";
-            dataGridView1.Columns[3].HeaderText = "Ответственный";
-
-
-            dataGridView1.ColumnHeadersVisible = true;
-            f2.num(3);
-            f2.conn.Close();
+            expenses();
         }
         // доходы(4)
         public void income(object sender, EventArgs e)
@@ -256,62 +276,7 @@ namespace is_1_20_LebedAN
         // заказы : клинты и время(5) 
         public void Order(object sender, EventArgs e)
         {
-            try
-            {
-                f2.fid_ta();
-                f2.fidtamax();
-                f2.fid_cl();
-                f2.fid_clmax();
-                f2.conn.Open();
-                table.Clear();
-                table.Columns.Clear();
-                string cl = "SELECT id_or,date FROM Orders;";
-                MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                dataGridView1.DataSource = bSource;
-                bSource.DataSource = table;
-                MyDA.Fill(table);
-                table.Columns.Add("Column1");
-                int f = f2.id_clmax.Count();
-                for (int i = 0; i < f; i++)
-                {
-                    string q = f2.id_clmax.Dequeue();
-                    string w = "";
-                    f2.id_cl.TryGetValue(q, out w);
-                    this.dataGridView1[2, i].Value = Convert.ToString(w);
-                }
-                table.Columns.Add("Column2");
-                int r = f2.id_tamax.Count();
-                for (int i = 0; i < r; i++)
-                {
-                    string q = f2.id_tamax.Dequeue();
-                    string w = "";
-                    f2.id_ta.TryGetValue(q, out w);
-                    this.dataGridView1[3, i].Value = Convert.ToString(w);
-                }
-
-                dataGridView1.Columns[0].ReadOnly = true;
-                dataGridView1.Columns[1].ReadOnly = true;
-                dataGridView1.Columns[2].ReadOnly = true;
-                dataGridView1.Columns[3].ReadOnly = true;
-
-                dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-                dataGridView1.Columns[0].HeaderText = "ID";
-                dataGridView1.Columns[1].HeaderText = "Дата";
-                dataGridView1.Columns[2].HeaderText = "ФИО клиента";
-                dataGridView1.Columns[3].HeaderText = "Заказ";
-
-                dataGridView1.ColumnHeadersVisible = true;
-                f2.num(5);
-                f2.conn.Close();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show($"{ex.Message}");
-            }
+            orders();
         }
         // привилегии и их описание(6)
         public void privilag(object sender, EventArgs e)
@@ -483,6 +448,11 @@ namespace is_1_20_LebedAN
             this.Hide();
             Changes f2 = new Changes();
             f2.Show();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

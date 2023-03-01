@@ -40,6 +40,7 @@ namespace is_1_20_LebedAN
             this.выбратьБдToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.краткийПодсчетПрибылиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.внестиИзмененияВТаблицыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -135,6 +136,11 @@ namespace is_1_20_LebedAN
             this.внестиИзмененияВТаблицыToolStripMenuItem.Text = "Внести изменения в таблицы";
             this.внестиИзмененияВТаблицыToolStripMenuItem.Click += new System.EventHandler(this.внестиИзмененияВТаблицыToolStripMenuItem_Click);
             // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -169,6 +175,7 @@ namespace is_1_20_LebedAN
         private System.Windows.Forms.ToolStripMenuItem выбратьБдToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem краткийПодсчетПрибылиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem внестиИзмененияВТаблицыToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
     }
 }
 

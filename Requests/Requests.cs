@@ -28,7 +28,7 @@ namespace Requests
         public Queue<string> id_tamax = new Queue<string>();
         public void con()
         {
-            string connStr = "server=chuc.caseum.ru;port=33333;user=st_1_20_19;database=is_1_20_st19_KURS;password=14313537;";
+            string connStr = "server=chuc.sdlik.ru;port=33333;user=st_1_20_19;database=is_1_20_st19_KURS;password=14313537;";
             conn = new MySqlConnection(connStr);
             if(conn == null)
             {
@@ -53,6 +53,7 @@ namespace Requests
             date1 = dat1;
             date2 = dat2;
         }
+        #region//пока не нужно, но используеться в коде 
         public void reespoc()
         {
             conn.Open();
@@ -158,6 +159,101 @@ namespace Requests
             }
             conn.Close();
         }
+        #endregion
+
+        #region//Методы для почти автоматизированного вызова в грид
+        public List<string> st1 = new List<string>();
+        public List<string> st2 = new List<string>();
+        public List<string> st3 = new List<string>();
+        public List<string> st4 = new List<string>();
+        public List<string> st5 = new List<string>();
+        public List<string> st6 = new List<string>();
+        public List<string> st7 = new List<string>();
+        public List<int> in1 = new List<int>();
+        public List<int> in2 = new List<int>();
+        public List<int> in3 = new List<int>();
+        public List<int> in4 = new List<int>();
+        public void ClerList()
+        {
+            st1.Clear(); st2.Clear(); st3.Clear(); st4.Clear(); st5.Clear(); st6.Clear(); st7.Clear();
+            in1.Clear(); in2.Clear(); in3.Clear(); in4.Clear();
+        }
+        public void Client()
+        {
+            ClerList();
+            number = 1;
+            string s = "SELECT * FROM Client";
+            conn.Open();
+            MySqlCommand command = new MySqlCommand(s, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                st1.Add(Convert.ToString(reader[0]));
+                st2.Add(Convert.ToString(reader[1]));
+                st3.Add(Convert.ToString(reader[2]));
+            }
+            conn.Close();
+        }
+        public void employee()
+        {
+            ClerList();
+            number = 2;
+            string s = "SELECT employee.id_em,employee.fio_em,employee.telephone_em,employee.post_em,privilege.name_pr AS role_em, employee.login_em,sha256.password AS pasword FROM employee LEFT JOIN privilege ON employee.role_em = privilege.id_pr LEFT JOIN sha256 ON employee.pasword = sha256.id";
+            conn.Open();
+            MySqlCommand command = new MySqlCommand(s, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                st1.Add(Convert.ToString(reader[0]));
+                st2.Add(Convert.ToString(reader[1]));
+                st3.Add(Convert.ToString(reader[2]));
+                st4.Add(Convert.ToString(reader[3]));
+                st5.Add(Convert.ToString(reader[4]));
+                st6.Add(Convert.ToString(reader[5]));
+                st7.Add(Convert.ToString(reader[6]));
+
+            }
+            conn.Close();
+        }
+        public void expenses()
+        {
+            ClerList();
+            number = 3;
+            string s = "SELECT expenses.id_ex,expenses.description,expenses.price,expenses.date,employee.fio_em AS emploee, provider.company_pr AS provide FROM expenses LEFT JOIN employee ON expenses.emploee = employee.id_em LEFT JOIN provider ON expenses.provide = provider.id_pr";
+            conn.Open();
+            MySqlCommand command = new MySqlCommand(s, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                st1.Add(Convert.ToString(reader[0]));
+                st2.Add(Convert.ToString(reader[1]));
+                st3.Add(Convert.ToString(reader[2]));
+                st4.Add(Convert.ToString(reader[3]));
+                st5.Add(Convert.ToString(reader[4]));
+                st6.Add(Convert.ToString(reader[5]));
+            }
+            conn.Close();
+        }
+        public void orders()
+        {
+            ClerList();
+            number = 5;
+            string s = "SELECT Orders.id_or,Client.fio_cl AS id_cl,tariff.Price_ta AS id_ta,Orders.date,Orders.date_using FROM Orders LEFT JOIN tariff ON Orders.id_ta = tariff.id_ta LEFT JOIN Client ON Orders.id_cl = Client.id_cl";
+            conn.Open();
+            MySqlCommand command = new MySqlCommand(s, conn);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                st1.Add(Convert.ToString(reader[0]));
+                st2.Add(Convert.ToString(reader[1]));
+                st3.Add(Convert.ToString(reader[2]));
+                st4.Add(Convert.ToString(reader[3]));
+                st5.Add(Convert.ToString(reader[4]));
+            }
+            conn.Close();
+        }
+            
+        #endregion
 
     }
 }

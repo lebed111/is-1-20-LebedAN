@@ -18,6 +18,7 @@ namespace is_1_20_LebedAN
         Mainform s2 = new Mainform();
         popd pop = new popd();
         Authorization a2 = new Authorization();
+        int w = 0;
         class popd
         {
            public string max;
@@ -42,9 +43,17 @@ namespace is_1_20_LebedAN
 
             contextMenuStrip1.Items.AddRange(new[] { emploMenuItems, ClientMenuItems, expensMenuItems, incomeMenuItems, OrderMenuItems, privilagMenuItems, providerMenuItems, tariffMenuItems, tep_expensMenuItems });
             contextMenuStrip2.Items.AddRange(new[] { updateMenuItems, deletMenuItems });
+            contextMenuStrip3.Items.AddRange(new[] { updateMenuItems});
 
             //metroButton4.ContextMenuStrip = contextMenuStrip1;
-            dataGridView1.ContextMenuStrip = contextMenuStrip2;
+            if (w == 1)
+            {
+                dataGridView1.ContextMenuStrip = contextMenuStrip2;
+            }
+            else if (w == 2)
+            {
+                dataGridView1.ContextMenuStrip = contextMenuStrip3;
+            }
             //contextMenuStrip1
             ClientMenuItems.Click += Client;
             emploMenuItems.Click += emploe;
@@ -58,120 +67,41 @@ namespace is_1_20_LebedAN
             //contextMenuStrip2
             updateMenuItems.Click += update;
             deletMenuItems.Click += delet;
+
         }
         Requests.Requests f2 = new Requests.Requests();
 
         private void Changes_Load(object sender, EventArgs e)
         {
             f2.con();
-            f2.conn.Open();
-            string cl;
             switch (f2.number)
             {
                 case 1:
-                    cl = "SELECT * FROM Client;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    dataGridView1.Columns[0].HeaderText = "ID";
-                    dataGridView1.Columns[1].HeaderText = "ФИО";
-                    dataGridView1.Columns[2].HeaderText = "Телефон";
+                    Clint();
                     break;
                 case 2:
-                    cl = "SELECT * FROM employee;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    dataGridView1.Columns[0].HeaderText = "ID";
-                    dataGridView1.Columns[1].HeaderText = "ФИО";
-                    dataGridView1.Columns[2].HeaderText = "Телефон";
-                    dataGridView1.Columns[3].HeaderText = "Должность";
-                    dataGridView1.Columns[4].HeaderText = "Роль в программе";
-                    dataGridView1.Columns[5].HeaderText = "Логин";
-                    dataGridView1.Columns[6].HeaderText = "Пароль в sha256";
+                    //сотрудники
                     break;
                 case 3:
-                    cl = "SELECT * FROM expenses;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    dataGridView1.ColumnHeadersVisible = true;
-                    dataGridView1.Columns[2].DefaultCellStyle.Format = "yyyy-MM-dd";
-                    s2.MyDA.Fill(s2.table);
-                    dataGridView1.Columns[0].HeaderText = "ID";
-                    dataGridView1.Columns[1].HeaderText = "Тип расхода";
-                    dataGridView1.Columns[2].HeaderText = "Дата";
-                    dataGridView1.Columns[3].HeaderText = "Ответственный";
+                    //расходы
                     break;
                 case 4:
-                    cl = "SELECT * FROM income;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
+                    //доделать таблицу или вырезать
                     break;
                 case 5:
-                    cl = "SELECT * FROM Orders;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    coluumn();
-                    dataGridView1.ColumnHeadersVisible = true;
-                    dataGridView1.Columns[3].DefaultCellStyle.Format = "yyyy-MM-dd";
-                    f2.num(5);
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    dataGridView1.Columns[0].HeaderText = "ID";
-                    dataGridView1.Columns[1].HeaderText = "Клиент ID";
-                    dataGridView1.Columns[2].HeaderText = "Заказ ID";
-                    dataGridView1.Columns[3].HeaderText = "Дата";
-                    f2.conn.Close();
+                    //заказы
                     break;
                 case 6:
-                   cl = "SELECT * FROM privilege;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    dataGridView1.Columns[0].HeaderText = "ID";
-                    dataGridView1.Columns[1].HeaderText = "Название";
-                    dataGridView1.Columns[2].HeaderText = "Уровень доступа";
-                    dataGridView1.Columns[3].HeaderText = "Описание";
+                    //уровни доступа
                     break;
                 case 7:
-                    cl = "SELECT * FROM provider;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    dataGridView1.Columns[0].HeaderText = "ID";
-                    dataGridView1.Columns[1].HeaderText = "Телефон";
-                    dataGridView1.Columns[2].HeaderText = "Компания";
-                    dataGridView1.Columns[3].HeaderText = "Адресс";
+                    //поставщик
                     break;
                 case 8:
-                    cl = "SELECT * FROM tariff;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    dataGridView1.Columns[0].HeaderText = "ID";
-                    dataGridView1.Columns[1].HeaderText = "Наименование товара";
-                    dataGridView1.Columns[2].HeaderText = "Цена";
-                    dataGridView1.Columns[3].HeaderText = "Краткое описание";
+                    //цены на товар
                     break;
                 case 9:
-                    cl = "SELECT * FROM types_expenses;";
-                    s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-                    dataGridView1.DataSource = s2.bSource;
-                    s2.bSource.DataSource = s2.table;
-                    s2.MyDA.Fill(s2.table);
-                    dataGridView1.Columns[0].HeaderText = "ID";
-                    dataGridView1.Columns[1].HeaderText = "Наименование";
-                    dataGridView1.Columns[2].HeaderText = "Цена";
-                    dataGridView1.Columns[3].HeaderText = "Поставщик";
+                    //были типы расходо, но скорее всего уберу 
                     break;
             }
             coluumn();
@@ -1249,28 +1179,41 @@ namespace is_1_20_LebedAN
                 dataGridView1.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
             dataGridView1.ColumnHeadersVisible = true;
-            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
         }//колонки
+        #region//все таблицы в виде вывода с настройкой грида
+        public void Clint()// клиенты
+        {
+            f2.Client();
+            dataGridView1.Columns.Add("ID","ID");
+            dataGridView1.Columns.Add("ФИО", "ФИО");
+            dataGridView1.Columns.Add("Телефон", "Телефон");
+            for (int i = 0; i < f2.st1.Count; i++)
+            {
+                dataGridView1.Rows.Add(f2.st1[i], f2.st2[i], f2.st3[i]);
+            }
+            coluumn();
+            label2.Text = "ФИО";
+            label3.Text = "Телефон";
+            label4.Visible = false;
+            label5.Visible = false;
+            label6.Visible = false;
+            label7.Visible = false;
+            textBox3.Visible = false;
+            textBox4.Visible = false;
+            textBox5.Visible = false;
+            textBox6.Visible = false;
+        }
+
+        #endregion
         public void Client(object sender, EventArgs e)
         {
-            f2.conn.Open();
-            s2.table.Clear();
-            s2.table.Columns.Clear();
-            string cl = "SELECT * FROM Client;";
-            s2.MyDA.SelectCommand = new MySqlCommand(cl, f2.conn);
-            dataGridView1.DataSource = s2.bSource;
-            s2.bSource.DataSource = s2.table;
-            s2.MyDA.Fill(s2.table);
-            coluumn();
-            dataGridView1.ColumnHeadersVisible = true;
-            dataGridView1.Columns[0].HeaderText = "ID";
-            dataGridView1.Columns[1].HeaderText = "ФИО";
-            dataGridView1.Columns[2].HeaderText = "Телефон";
-            f2.num(1);
-            f2.conn.Close();
+            Clint();
         }// клиенты(1)
         public void emploe(object sender, EventArgs e)
         {
+            w = 2;
             f2.conn.Open();
             s2.table.Clear();
             s2.table.Columns.Clear();
@@ -1465,7 +1408,17 @@ namespace is_1_20_LebedAN
 
         private void обновитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            update(a2,e);
+            
+        }
+
+        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
